@@ -96,6 +96,7 @@
       },
       "GieudexPol.Infrastructure/1.0.0": {
         "dependencies": {
+          "GieudexPol.Application": "1.0.0",
           "GieudexPol.Domain": "1.0.0"
         },
         "runtime": {
