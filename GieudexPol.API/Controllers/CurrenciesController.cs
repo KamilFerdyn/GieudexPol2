@@ -1,4 +1,5 @@
 using GieudexPol.Application.Interfaces;
+using GieudexPol.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,5 +34,35 @@ namespace GieudexPol.API.Controllers
             }
             return Ok(currency);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCurrency([FromBody] Currency currency)
+        {
+            await _currencyService.AddAsync(currency);
+            return CreatedAtAction(nameof(GetCurrencyBySymbol), new { symbol = currency.Symbol }, currency);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCurrency(int id, [FromBody] Currency currency)
+        {
+            if (id != currency.Id)
+            {
+                return BadRequest();
+            }
+            await _currencyService.UpdateAsync(currency);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCurrency(int id)
+        {
+            var currency = await _currencyService.GetByIdAsync(id);
+            if (currency == null)
+            {
+                return NotFound();
+            }
+            await _currencyService.DeleteAsync(currency);
+            return NoContent();
+        }
     }
-}
+} 

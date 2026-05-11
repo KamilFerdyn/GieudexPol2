@@ -34,5 +34,28 @@ namespace GieudexPol.API.Controllers
             await _userService.AddAsync(user);
             return CreatedAtAction(nameof(GetUserByUsername), new { username = user.Username }, user);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
+        {
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+            await _userService.UpdateAsync(user);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            await _userService.DeleteAsync(user);
+            return NoContent();
+        }
     }
 }

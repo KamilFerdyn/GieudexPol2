@@ -1,4 +1,5 @@
 using GieudexPol.Application.Interfaces;
+using GieudexPol.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,6 +33,36 @@ namespace GieudexPol.API.Controllers
         {
             var exchangeRates = await _exchangeRateService.GetAllAsync();
             return Ok(exchangeRates);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateExchangeRate([FromBody] ExchangeRate exchangeRate)
+        {
+            await _exchangeRateService.AddAsync(exchangeRate);
+            return CreatedAtAction(nameof(GetExchangeRateByCurrencyPair), new { baseCurrencySymbol = exchangeRate.BaseCurrencySymbol, targetCurrencySymbol = exchangeRate.TargetCurrencySymbol }, exchangeRate);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExchangeRate(int id, [FromBody] ExchangeRate exchangeRate)
+        {
+            if (id != exchangeRate.Id)
+            {
+                return BadRequest();
+            }
+            await _exchangeRateService.UpdateAsync(exchangeRate);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteExchangeRate(int id)
+        {
+            var exchangeRate = await _exchangeRateService.GetByIdAsync(id);
+            if (exchangeRate == null)
+            {
+                return NotFound();
+            }
+            await _exchangeRateService.DeleteAsync(exchangeRate);
+            return NoContent();
         }
     }
 }
