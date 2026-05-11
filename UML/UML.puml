@@ -1,3 +1,4 @@
+
 @startuml
 skinparam classAttributeIconSize 0
 skinparam monochrome true
@@ -14,6 +15,8 @@ package "GieudexPol.Domain.Entities" {
         + List<Wallet> Wallets
         + List<Transaction> Transactions
         + List<UserAlert> Alerts
+        + List<AuditLog> AuditLogs
+        + List<Notification> Notifications
     }
 
     class Wallet {
@@ -49,6 +52,8 @@ package "GieudexPol.Domain.Entities" {
         + Decimal Amount
         + Decimal Price
         + Decimal Commission
+        + Guid? TransactionFeeId
+        + TransactionFee TransactionFee
         + TransactionType Type
         + DateTime CreatedAt
     }
@@ -62,6 +67,34 @@ package "GieudexPol.Domain.Entities" {
         + DateTime CreatedAt
     }
 
+    class AuditLog {
+        + Guid Id
+        + Guid UserId
+        + String Action
+        + String EntityName
+        + Guid EntityId
+        + String Changes
+        + DateTime Timestamp
+        + User User
+    }
+
+    class Notification {
+        + Guid Id
+        + Guid UserId
+        + String Message
+        + Boolean IsRead
+        + DateTime CreatedAt
+        + User User
+    }
+
+    class TransactionFee {
+        + Guid Id
+        + String Type
+        + Decimal FeePercentage
+        + Decimal FlatFee
+        + Boolean IsActive
+    }
+
     enum TransactionType {
         Buy
         Sell
@@ -70,9 +103,12 @@ package "GieudexPol.Domain.Entities" {
     User "1" *-- "many" Wallet
     User "1" *-- "many" Transaction
     User "1" *-- "many" UserAlert
+    User "1" *-- "many" AuditLog
+    User "1" *-- "many" Notification
     Currency "1" *-- "many" ExchangeRate
     Currency "1" -- "many" Wallet
     Currency "1" -- "many" Transaction
+    Transaction "many" -- "1" TransactionFee
     Transaction -- TransactionType
 }
 

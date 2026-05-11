@@ -11,6 +11,8 @@ namespace GieudexPol.Domain.Entities
         public string Role { get; set; } // Admin/User
         public ICollection<Wallet> Wallets { get; set; }
         public ICollection<UserAlert> UserAlerts { get; set; }
+        public ICollection<AuditLog> AuditLogs { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
     }
 
     

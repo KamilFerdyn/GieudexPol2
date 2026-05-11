@@ -13,6 +13,8 @@ namespace GieudexPol.Domain.Entities
         public decimal Amount { get; set; }
         public decimal Price { get; set; }
         public decimal Commission { get; set; }
+        public Guid? TransactionFeeId { get; set; }
+        public TransactionFee TransactionFee { get; set; }
         public DateTime Timestamp { get; set; }
     }
 }
