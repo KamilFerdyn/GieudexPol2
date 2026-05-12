@@ -1,163 +1,127 @@
-using GieudexPol.Application.Interfaces;
-using GieudexPol.Domain.Entities;
-using Moq;
 using Xunit;
-using System.Collections.Generic;
+using Moq;
+using FluentAssertions;
+using GieudexPol.Application.Interfaces;
+using GieudexPol.Application.Services;
+using GieudexPol.Domain.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-/// <summary>
-/// Test class for the <see cref="UserService"/> service, using mocked repository interactions.
-/// </summary>
-public class UserServiceTests
+namespace GieudexPol.Tests
 {
-// Usunięto pola poziomu klasy i konstruktor, aby zapewnić niezależną inicjalizację dla każdego testu.
-
-    /// <summary>
-    /// Tests that GetByIdAsync returns the expected user when a valid ID is provided.
-    /// </summary>
-    [Fact]
-    public async Task GetByIdAsync_ReturnsUserWhenExists()
+    public class UserServiceTests
     {
-        // Arrange
-        var expectedUser = new User { Id = 1, Username = "testuser" };
-        _mockUserRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
-            .ReturnsAsync(expectedUser);
+        private readonly Mock<IUserRepository> _mockUserRepository;
+        private readonly UserService _userService;
 
-        // Act
-        var result = await _userService.GetByIdAsync(1);
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal("testuser", result.Username);
-        _mockUserRepository.Verify(r => r.GetByIdAsync(1), Times.Once());
-    }
-
-    /// <summary>
-    /// Tests that GetByIdAsync returns null when the user ID does not exist in the repository.
-    /// </summary>
-    [Fact]
-    public async Task GetByIdAsync_ReturnsNullWhenNotFound()
-    {
-        // Arrange
-        _mockUserRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
-            .ReturnsAsync((User)null);
-
-        // Act
-        var result = await _userService.GetByIdAsync(99);
-
-        // Assert
-        Assert.Null(result);
-        _mockUserRepository.Verify(r => r.GetByIdAsync(99), Times.Once());
-    }
-
-    /// <summary>
-    /// Tests that GetAllAsync returns a collection containing all existing users.
-    /// </summary>
-    [Fact]
-    public async Task GetAllAsync_ReturnsAllUsers()
-    {
-        // Arrange
-        var users = new List<User>
+        public UserServiceTests()
         {
-            new User { Id = 1, Username = "userA" },
-            new User { Id = 2, Username = "userB" }
-        };
-        _mockUserRepository.Setup(r => r.GetAllAsync())
-            .ReturnsAsync(users);
+            _mockUserRepository = new Mock<IUserRepository>();
+            _userService = new UserService(_mockUserRepository.Object);
+        }
 
-        // Act
-        var result = await _userService.GetAllAsync();
+        [Fact]
+        public async Task AddAsync_ShouldCallRepositoryAddAsync()
+        {
+            // Arrange
+            var user = new User { Username = "testuser", PasswordHash = "hashedpassword" };
+            _mockUserRepository.Setup(repo => repo.AddAsync(user)).Returns(Task.CompletedTask);
 
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(2, result.Count());
-        _mockUserRepository.Verify(r => r.GetAllAsync(), Times.Once());
-    }
+            // Act
+            await _userService.AddAsync(user);
 
-    /// <summary>
-    /// Tests that calling AddAsync correctly calls the repository's AddAsync method.
-    /// </summary>
-    [Fact]
-    public async Task AddAsync_CallsRepositoryAdd()
-    {
-        // Arrange
-        var newUser = new User { Username = "newuser" };
+            // Assert
+            _mockUserRepository.Verify(repo => repo.AddAsync(user), Times.Once);
+        }
 
-        // Act
-        await _userService.AddAsync(newUser);
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnUser_WhenUserExists()
+        {
+            // Arrange
+            var userId = 1;
+            var expectedUser = new User { Id = userId, Username = "testuser", PasswordHash = "hashedpassword" };
+            _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(expectedUser);
 
-        // Assert
-        _mockUserRepository.Verify(r => r.AddAsync(newUser), Times.Once());
-    }
+            // Act
+            var result = await _userService.GetByIdAsync(userId);
 
-    /// <summary>
-    /// Tests that calling UpdateAsync correctly calls the repository's UpdateAsync method.
-    /// </summary>
-    [Fact]
-    public async Task UpdateAsync_CallsRepositoryUpdate()
-    {
-        // Arrange
-        var updatedUser = new User { Id = 1, Username = "updateduser" };
+            // Assert
+            result.Should().BeEquivalentTo(expectedUser);
+            _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        }
 
-        // Act
-        await _userService.UpdateAsync(updatedUser);
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        {
+            // Arrange
+            var userId = 1;
+            _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User)null);
 
-        // Assert
-        _mockUserRepository.Verify(r => r.UpdateAsync(updatedUser), Times.Once());
-    }
+            // Act
+            var result = await _userService.GetByIdAsync(userId);
 
-    /// <summary>
-    /// Tests that calling DeleteAsync correctly calls the repository's DeleteAsync method.
-    /// </summary>
-    [Fact]
-    public async Task DeleteAsync_CallsRepositoryDelete()
-    {
-        // Arrange
-        var userToDelete = new User { Id = 1 };
+            // Assert
+            result.Should().BeNull();
+            _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        }
 
-        // Act
-        await _userService.DeleteAsync(userToDelete);
+        [Fact]
+        public async Task GetByUsernameAsync_ShouldReturnUser_WhenUserExists()
+        {
+            // Arrange
+            var username = "testuser";
+            var expectedUser = new User { Id = 1, Username = username, PasswordHash = "hashedpassword" };
+            _mockUserRepository.Setup(repo => repo.GetByUsernameAsync(username)).ReturnsAsync(expectedUser);
 
-        // Assert
-        _mockUserRepository.Verify(r => r.DeleteAsync(userToDelete), Times.Once());
-    }
+            // Act
+            var result = await _userService.GetByUsernameAsync(username);
 
-    /// <summary>
-    /// Tests that GetByUsernameAsync returns the expected user when a valid username is provided.
-    /// </summary>
-    [Fact]
-    public async Task GetByUsernameAsync_ReturnsUserWhenExists()
-    {
-        // Arrange
-        var expectedUser = new User { Id = 2, Username = "testbyusername" };
-        _mockUserRepository.Setup(r => r.GetByUsernameAsync("testbyusername"))
-            .ReturnsAsync(expectedUser);
+            // Assert
+            result.Should().BeEquivalentTo(expectedUser);
+            _mockUserRepository.Verify(repo => repo.GetByUsernameAsync(username), Times.Once);
+        }
 
-        // Act
-        var result = await _userService.GetByUsernameAsync("testbyusername");
+        [Fact]
+        public async Task GetByUsernameAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        {
+            // Arrange
+            var username = "nonexistent";
+            _mockUserRepository.Setup(repo => repo.GetByUsernameAsync(username)).ReturnsAsync((User)null);
 
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal("testbyusername", result.Username);
-        _mockUserRepository.Verify(r => r.GetByUsernameAsync("testbyusername"), Times.Once());
-    }
+            // Act
+            var result = await _userService.GetByUsernameAsync(username);
 
-    /// <summary>
-    /// Tests that GetByUsernameAsync returns null when the username does not exist in the repository.
-    /// </summary>
-    [Fact]
-    public async Task GetByUsernameAsync_ReturnsNullWhenNotFound()
-    {
-        // Arrange
-        _mockUserRepository.Setup(r => r.GetByUsernameAsync("nonexistentuser"))
-            .ReturnsAsync((User)null);
+            // Assert
+            result.Should().BeNull();
+            _mockUserRepository.Verify(repo => repo.GetByUsernameAsync(username), Times.Once);
+        }
 
-        // Act
-        var result = await _userService.GetByUsernameAsync("nonexistentuser");
+        [Fact]
+        public async Task UpdateAsync_ShouldCallRepositoryUpdateAsync()
+        {
+            // Arrange
+            var user = new User { Id = 1, Username = "updateduser", PasswordHash = "newhashedpassword" };
+            _mockUserRepository.Setup(repo => repo.UpdateAsync(user)).Returns(Task.CompletedTask);
 
-        // Assert
-        Assert.Null(result);
-        _mockUserRepository.Verify(r => r.GetByUsernameAsync("nonexistentuser"), Times.Once());
+            // Act
+            await _userService.UpdateAsync(user);
+
+            // Assert
+            _mockUserRepository.Verify(repo => repo.UpdateAsync(user), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldCallRepositoryDeleteAsync()
+        {
+            // Arrange
+            var user = new User { Id = 1, Username = "testuser", PasswordHash = "hashedpassword" };
+            _mockUserRepository.Setup(repo => repo.DeleteAsync(user)).Returns(Task.CompletedTask);
+
+            // Act
+            await _userService.DeleteAsync(user);
+
+            // Assert
+            _mockUserRepository.Verify(repo => repo.DeleteAsync(user), Times.Once);
+        }
     }
 }
-

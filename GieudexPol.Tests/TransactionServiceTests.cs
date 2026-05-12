@@ -1,196 +1,135 @@
-/// <summary>
-/// Klasa testująca usługę zarządzania transakcjami (TransactionService).
-/// Testy te weryfikują logikę pobierania, dodawania i modyfikowania rekordów transakcji.
-/// </summary>
-using GieudexPol.Application.Interfaces;
-using GieudexPol.Domain.Entities;
-using Moq;
 using Xunit;
-using System.Collections.Generic;
-using System.Linq;
+using Moq;
+using FluentAssertions;
+using GieudexPol.Application.Interfaces;
+using GieudexPol.Application.Services;
+using GieudexPol.Domain.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace GieudexPol.Tests
 {
     public class TransactionServiceTests
     {
-        /// <summary>
-        /// Testuje pobranie konkretnej transakcji po jej ID (sukces).
-        /// </summary>
-        [Fact]
-        public async Task GetByIdAsync_ReturnsTransactionWhenExists()
+        private readonly Mock<ITransactionRepository> _mockTransactionRepository;
+        private readonly TransactionService _transactionService;
+
+        public TransactionServiceTests()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-            var expectedTransaction = new Transaction { Id = 1, UserId = 2 };
-            mockTransactionRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(expectedTransaction);
-
-            // Act
-            var result = await transactionService.GetByIdAsync(1);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.UserId);
-            mockTransactionRepository.Verify(r => r.GetByIdAsync(1), Times.Once());
+            _mockTransactionRepository = new Mock<ITransactionRepository>();
+            _transactionService = new TransactionService(_mockTransactionRepository.Object);
         }
 
-        /// <summary>
-        /// Testuje pobranie transakcji, która nie istnieje (powinno zwrócić null).
-        /// </summary>
         [Fact]
-        public async Task GetByIdAsync_ReturnsNullWhenNotFound()
+        public async Task GetByIdAsync_ShouldReturnTransaction_WhenTransactionExists()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            mockTransactionRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync((Transaction)null);
+            // Arrange
+            var transactionId = 1;
+            var expectedTransaction = new Transaction { Id = transactionId, UserId = 1, CurrencyId = 1, Amount = 10m };
+            _mockTransactionRepository.Setup(repo => repo.GetByIdAsync(transactionId)).ReturnsAsync(expectedTransaction);
 
             // Act
-            var result = await transactionService.GetByIdAsync(99);
+            var result = await _transactionService.GetByIdAsync(transactionId);
 
             // Assert
-            Assert.Null(result);
-            mockTransactionRepository.Verify(r => r.GetByIdAsync(99), Times.Once());
+            result.Should().BeEquivalentTo(expectedTransaction);
+            _mockTransactionRepository.Verify(repo => repo.GetByIdAsync(transactionId), Times.Once);
         }
 
-        /// <summary>
-        /// Testuje pobranie wszystkich zarejestrowanych transakcji.
-        /// </summary>
         [Fact]
-        public async Task GetAllAsync_ReturnsAllTransactions()
+        public async Task GetByIdAsync_ShouldReturnNull_WhenTransactionDoesNotExist()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
+            // Arrange
+            var transactionId = 1;
+            _mockTransactionRepository.Setup(repo => repo.GetByIdAsync(transactionId)).ReturnsAsync((Transaction)null);
 
-            var transactions = new List<Transaction>
+            // Act
+            var result = await _transactionService.GetByIdAsync(transactionId);
+
+            // Assert
+            result.Should().BeNull();
+            _mockTransactionRepository.Verify(repo => repo.GetByIdAsync(transactionId), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetAllAsync_ShouldReturnAllTransactions()
+        {
+            // Arrange
+            var expectedTransactions = new List<Transaction>
             {
-                new Transaction { Id = 1, UserId = 2 },
-                new Transaction { Id = 2, UserId = 1 }
+                new Transaction { Id = 1, UserId = 1, CurrencyId = 1, Amount = 10m },
+                new Transaction { Id = 2, UserId = 2, CurrencyId = 2, Amount = 20m }
             };
-            mockTransactionRepository.Setup(r => r.GetAllAsync())
-                .ReturnsAsync(transactions);
+            _mockTransactionRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(expectedTransactions);
 
             // Act
-            var result = await transactionService.GetAllAsync();
+            var result = await _transactionService.GetAllAsync();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count());
-            mockTransactionRepository.Verify(r => r.GetAllAsync(), Times.Once());
+            result.Should().BeEquivalentTo(expectedTransactions);
+            _mockTransactionRepository.Verify(repo => repo.GetAllAsync(), Times.Once);
         }
 
-        /// <summary>
-        /// Testuje, czy usługa poprawnie wywołuje metodę dodawania nowej transakcji do repozytorium.
-        /// </summary>
         [Fact]
-        public async Task AddAsync_CallsRepositoryAdd()
+        public async Task AddAsync_ShouldCallRepositoryAddAsync()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            var newTransaction = new Transaction { UserId = 1 };
+            // Arrange
+            var transaction = new Transaction { UserId = 1, CurrencyId = 1, Amount = 10m };
+            _mockTransactionRepository.Setup(repo => repo.AddAsync(transaction)).Returns(Task.CompletedTask);
 
             // Act
-            await transactionService.AddAsync(newTransaction);
+            await _transactionService.AddAsync(transaction);
 
             // Assert
-            mockTransactionRepository.Verify(r => r.AddAsync(newTransaction), Times.Once());
+            _mockTransactionRepository.Verify(repo => repo.AddAsync(transaction), Times.Once);
         }
 
-        /// <summary>
-        /// Testuje, czy usługa poprawnie wywołuje metodę aktualizacji transakcji w repozytorium.
-        /// </summary>
         [Fact]
-        public async Task UpdateAsync_CallsRepositoryUpdate()
+        public async Task UpdateAsync_ShouldCallRepositoryUpdateAsync()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            var updatedTransaction = new Transaction { Id = 1, UserId = 2 };
+            // Arrange
+            var transaction = new Transaction { Id = 1, UserId = 1, CurrencyId = 1, Amount = 15m };
+            _mockTransactionRepository.Setup(repo => repo.UpdateAsync(transaction)).Returns(Task.CompletedTask);
 
             // Act
-            await transactionService.UpdateAsync(updatedTransaction);
+            await _transactionService.UpdateAsync(transaction);
 
             // Assert
-            mockTransactionRepository.Verify(r => r.UpdateAsync(updatedTransaction), Times.Once());
+            _mockTransactionRepository.Verify(repo => repo.UpdateAsync(transaction), Times.Once);
         }
 
-        /// <summary>
-        /// Testuje, czy usługa poprawnie wywołuje metodę usuwania transakcji z repozytorium.
-        /// </summary>
         [Fact]
-        public async Task DeleteAsync_CallsRepositoryDelete()
+        public async Task DeleteAsync_ShouldCallRepositoryDeleteAsync()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            var transactionToDelete = new Transaction { Id = 1 };
+            // Arrange
+            var transaction = new Transaction { Id = 1, UserId = 1, CurrencyId = 1, Amount = 10m };
+            _mockTransactionRepository.Setup(repo => repo.DeleteAsync(transaction)).Returns(Task.CompletedTask);
 
             // Act
-            await transactionService.DeleteAsync(transactionToDelete);
+            await _transactionService.DeleteAsync(transaction);
 
             // Assert
-            mockTransactionRepository.Verify(r => r.DeleteAsync(transactionToDelete), Times.Once());
+            _mockTransactionRepository.Verify(repo => repo.DeleteAsync(transaction), Times.Once);
         }
 
-        /// <summary>
-        /// Testuje pobranie wszystkich transakcji przypisanych do konkretnego użytkownika (sukces).
-        /// </summary>
         [Fact]
-        public async Task GetUserTransactionsAsync_ReturnsByUser()
+        public async Task GetUserTransactionsAsync_ShouldReturnTransactions_WhenUserHasTransactions()
         {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            var transactions = new List<Transaction>
+            // Arrange
+            var userId = 1;
+            var expectedTransactions = new List<Transaction>
             {
-                new Transaction { Id = 1, UserId = 2 },
-                new Transaction { Id = 3, UserId = 2 }
+                new Transaction { Id = 1, UserId = userId, CurrencyId = 1, Amount = 10m },
+                new Transaction { Id = 2, UserId = userId, CurrencyId = 2, Amount = 20m }
             };
-            int targetUserId = 2;
-            mockTransactionRepository.Setup(r => r.GetUserTransactionsAsync(targetUserId))
-                .ReturnsAsync(transactions);
+            _mockTransactionRepository.Setup(repo => repo.GetUserTransactionsAsync(userId)).ReturnsAsync(expectedTransactions);
 
             // Act
-            var result = await transactionService.GetUserTransactionsAsync(targetUserId);
+            var result = await _transactionService.GetUserTransactionsAsync(userId);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count());
-            mockTransactionRepository.Verify(r => r.GetUserTransactionsAsync(targetUserId), Times.Once());
-        }
-
-        /// <summary>
-        /// Testuje pobranie transakcji dla użytkownika, który nie ma żadnych zapisanych transakcji.
-        /// </summary>
-        [Fact]
-        public async Task GetUserTransactionsAsync_ReturnsEmptyListWhenNoneFound()
-        {
-            // Arrange: Inicjalizacja dla każdego testu zapewnia izolację stanów.
-            var mockTransactionRepository = new Mock<ITransactionRepository>();
-            var transactionService = new TransactionService(mockTransactionRepository.Object);
-
-            var emptyList = new List<Transaction>();
-            int targetUserId = 99; // Non-existent user ID
-            mockTransactionRepository.Setup(r => r.GetUserTransactionsAsync(targetUserId))
-                .ReturnsAsync(emptyList);
-
-            // Act
-            var result = await transactionService.GetUserTransactionsAsync(targetUserId);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
-            mockTransactionRepository.Verify(r => r.GetUserTransactionsAsync(targetUserId), Times.Once());
+            result.Should().BeEquivalentTo(expectedTransactions);
+            _mockTransactionRepository.Verify(repo => repo.GetUserTransactionsAsync(userId), Times.Once);
         }
     }
 }

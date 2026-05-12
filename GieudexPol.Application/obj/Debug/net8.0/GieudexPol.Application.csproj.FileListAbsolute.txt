@@ -46,3 +46,19 @@ c:/Users/luczk/Desktop/GieudexPol/GieudexPol.Application/obj/Debug/net8.0/ref/Gi
 /Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/obj/Debug/net8.0/GieudexPol.Application.pdb
 /Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/obj/Debug/net8.0/ref/GieudexPol.Application.dll
 /Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/obj/Debug/net8.0/GieudexPol.Application.csproj.CopyComplete
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\bin\Debug\net8.0\GieudexPol.Application.deps.json
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\bin\Debug\net8.0\GieudexPol.Application.dll
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\bin\Debug\net8.0\GieudexPol.Application.pdb
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\bin\Debug\net8.0\GieudexPol.Domain.dll
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\bin\Debug\net8.0\GieudexPol.Domain.pdb
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.csproj.AssemblyReference.cache
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.AssemblyInfoInputs.cache
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.AssemblyInfo.cs
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.csproj.CoreCompileInputs.cache
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.sourcelink.json
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexP.FE40F9B8.Up2Date
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.dll
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\refint\GieudexPol.Application.dll
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\GieudexPol.Application.pdb
+C:\Users\wojci\Documents\GitHub\GieudexPol\GieudexPol.Application\obj\Debug\net8.0\ref\GieudexPol.Application.dll

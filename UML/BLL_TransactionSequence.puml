@@ -1,0 +1,51 @@
+@startuml
+actor User as user
+participant "TransactionService" as transactionService
+participant "WalletService" as walletService
+participant "ExchangeRateService" as exchangeRateService
+participant "ITransactionRepository" as transactionRepo
+participant "IWalletRepository" as walletRepo
+
+user -> transactionService: WykonajTransakcje(userId, zrodloWaluty, docelowaWaluta, kwota)
+activate transactionService
+
+transactionService -> walletService: GetUserWallet(userId, zrodloWaluty)
+activate walletService
+walletService --> transactionService: ZrodloPortfela
+deactivate walletService
+
+transactionService -> walletService: GetUserWallet(userId, docelowaWaluta)
+activate walletService
+walletService --> transactionService: DocelowyPortfel
+deactivate walletService
+
+transactionService -> exchangeRateService: GetCurrentExchangeRate(zrodloWaluty, docelowaWaluta)
+activate exchangeRateService
+exchangeRateService --> transactionService: KursWymiany
+deactivate exchangeRateService
+
+alt Jeśli środki niewystarczające
+    transactionService --> user: Zgłoś błąd: Niewystarczające środki
+else Jeśli waluty są takie same
+    transactionService --> user: Zgłoś błąd: Te same waluty
+else W przeciwnym razie
+    transactionService -> transactionRepo: AddTransaction(transakcja)
+    activate transactionRepo
+    transactionRepo --> transactionService: TransakcjaZapisana
+    deactivate transactionRepo
+
+    transactionService -> walletRepo: UpdateWallet(ZrodloPortfela)
+    activate walletRepo
+    walletRepo --> transactionService: ZrodloPortfelaZaktualizowane
+    deactivate walletRepo
+
+    transactionService -> walletRepo: UpdateWallet(DocelowyPortfel)
+    activate walletRepo
+    walletRepo --> transactionService: DocelowyPortfelZaktualizowany
+    deactivate walletRepo
+
+    transactionService --> user: PotwierdzenieTransakcji
+end
+
+deactivate transactionService
+@enduml

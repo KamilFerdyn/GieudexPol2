@@ -1,104 +1,150 @@
-/// <summary>
-/// Klasa testująca usługę powiadomień użytkowników (UserAlertService).
-/// Testy te weryfikują logikę sprawdzania salda kont i wysyłania alertów o niskim poziomie środków.
-/// </summary>
-using GieudexPol.Application.Interfaces;
-using GieudexPol.Domain.Entities;
-using Moq;
 using Xunit;
-using System;
-using System.Linq;
+using Moq;
+using FluentAssertions;
+using GieudexPol.Application.Interfaces;
+using GieudexPol.Application.Services;
+using GieudexPol.Domain.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace GieudexPol.Tests
 {
-    // Użycie IClassFixture (lub podobnego mechanizmu) jest najlepsze, ale dla uproszczenia 
-    // i z uwagi na brak możliwości zmian w atrybutach testów, będziemy re-mockować zależności przed każdym teście.
-/// <summary>
-/// Klasa testująca usługę powiadomień użytkowników (UserAlertService).
-/// Testy te weryfikują logikę sprawdzania salda oraz wysyłania alertów o niskim poziomie środków.
-/// </summary>
-public class UserAlertServiceTests
-{
-    // Usunięto pola poziomu klasy, aby zapewnić niezależną inicjalizację dla każdego testu.
+    public class UserAlertServiceTests
+    {
+        private readonly Mock<IUserAlertRepository> _mockUserAlertRepository;
+        private readonly UserAlertService _userAlertService;
 
-        /// <summary>
-        /// Testuje scenariusz wysłania alertu o niskim saldzie, gdy saldo jest poniżej ustalonego progu.
-        /// </summary>
-[Fact]
-public async Task CheckAndSendLowBalanceAlertAsync_SendsAlertWhenBelowThreshold()
-{
-    // ARRANGE
-    var userId = 1;
-    var currencySymbol = "PLN";
-    const double lowBalanceThreshold = 50.0;
+        public UserAlertServiceTests()
+        {
+            _mockUserAlertRepository = new Mock<IUserAlertRepository>();
+            _userAlertService = new UserAlertService(_mockUserAlertRepository.Object);
+        }
 
-    // Mock dla użytkownika (kontekst)
-    var mockUserRepository = new Mock<IUserRepository>();
-    mockUserRepository.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(new User { Id = userId });
+        [Fact]
+        public async Task AddAsync_ShouldCallRepositoryAddAsync()
+        {
+            // Arrange
+            var userAlert = new UserAlert { UserId = 1, CurrencyId = 1, TargetPrice = 1.2m, IsActive = true };
+            _mockUserAlertRepository.Setup(repo => repo.AddAsync(userAlert)).Returns(Task.CompletedTask);
 
-    // Mockowanie repozytorium portfela: Musi być nowy dla testu
-    var mockWalletRepo = new Mock<IWalletRepository>();
-    var wallet = new Wallet { UserId = userId, CurrencySymbol = currencySymbol, Balance = 30.0 };
-    mockWalletRepo.Setup(r => r.GetWalletByUserIdAsync(userId, currencySymbol)).ReturnsAsync(wallet);
+            // Act
+            await _userAlertService.AddAsync(userAlert);
 
-    // Tworzenie serwisowej instancji z mockami dla bieżącego testu (Kluczowe dla izolacji)
-    var userAlertService = new UserAlertService(mockUserRepository.Object, mockWalletRepo.Object);
+            // Assert
+            _mockUserAlertRepository.Verify(repo => repo.AddAsync(userAlert), Times.Once);
+        }
 
-    // ACT
-    await userAlertService.CheckAndSendLowBalanceAlertAsync(userId, currencySymbol, lowBalanceThreshold);
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnUserAlert_WhenUserAlertExists()
+        {
+            // Arrange
+            var userAlertId = 1;
+            var expectedUserAlert = new UserAlert { Id = userAlertId, UserId = 1, CurrencyId = 1, TargetPrice = 1.2m, IsActive = true };
+            _mockUserAlertRepository.Setup(repo => repo.GetByIdAsync(userAlertId)).ReturnsAsync(expectedUserAlert);
 
-    // ASSERT
-    mockUserRepository.Verify(r => r.GetByIdAsync(userId), Times.Once());
-}
+            // Act
+            var result = await _userAlertService.GetByIdAsync(userAlertId);
 
-[Fact]
-public async Task CheckAndSendLowBalanceAlertAsync_DoesNotSendAlertWhenAboveThreshold()
-{
-    // ARRANGE
-    var userId = 1;
-    var currencySymbol = "PLN";
-    const double lowBalanceThreshold = 50.0;
+            // Assert
+            result.Should().BeEquivalentTo(expectedUserAlert);
+            _mockUserAlertRepository.Verify(repo => repo.GetByIdAsync(userAlertId), Times.Once);
+        }
 
-    // Mock dla użytkownika (kontekst)
-    var mockUserRepository = new Mock<IUserRepository>();
-    mockUserRepository.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(new User { Id = userId });
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnNull_WhenUserAlertDoesNotExist()
+        {
+            // Arrange
+            var userAlertId = 1;
+            _mockUserAlertRepository.Setup(repo => repo.GetByIdAsync(userAlertId)).ReturnsAsync((UserAlert)null);
 
-    // Mockowanie repozytorium portfela: Saldo wyższe niż próg alertu
-    var mockWalletRepo = new Mock<IWalletRepository>();
-    var wallet = new Wallet { UserId = userId, CurrencySymbol = currencySymbol, Balance = 200.0 };
-    mockWalletRepo.Setup(r => r.GetWalletByUserIdAsync(userId, currencySymbol)).ReturnsAsync(wallet);
+            // Act
+            var result = await _userAlertService.GetByIdAsync(userAlertId);
 
-    // Tworzenie serwisowej instancji z mockami dla bieżącego testu (Kluczowe dla izolacji)
-    var userAlertService = new UserAlertService(mockUserRepository.Object, mockWalletRepo.Object);
+            // Assert
+            result.Should().BeNull();
+            _mockUserAlertRepository.Verify(repo => repo.GetByIdAsync(userAlertId), Times.Once);
+        }
 
-    // ACT
-    await userAlertService.CheckAndSendLowBalanceAlertAsync(userId, currencySymbol, lowBalanceThreshold);
+        [Fact]
+        public async Task GetAllAsync_ShouldReturnAllUserAlerts()
+        {
+            // Arrange
+            var expectedUserAlerts = new List<UserAlert>
+            {
+                new UserAlert { Id = 1, UserId = 1, CurrencyId = 1, TargetPrice = 1.2m, IsActive = true },
+                new UserAlert { Id = 2, UserId = 2, CurrencyId = 2, TargetPrice = 0.8m, IsActive = false }
+            };
+            _mockUserAlertRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(expectedUserAlerts);
 
-    // ASSERT
-     mockUserRepository.Verify(r => r.GetByIdAsync(userId), Times.Once()); 
-}
+            // Act
+            var result = await _userAlertService.GetAllAsync();
 
-[Fact]
-public async Task CheckAndSendLowBalanceAlertAsync_ThrowsExceptionIfUserNotFound()
-{
-    // ARRANGE
-    var userId = 99;
-    var currencySymbol = "PLN";
-    const double lowBalanceThreshold = 50.0;
+            // Assert
+            result.Should().BeEquivalentTo(expectedUserAlerts);
+            _mockUserAlertRepository.Verify(repo => repo.GetAllAsync(), Times.Once);
+        }
 
-    // Mockowanie braku użytkownika, co ma spowodować wyjątek (InvalidOperationException)
-    var mockUserRepository = new Mock<IUserRepository>();
-    mockUserRepository.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync((User)null);
+        [Fact]
+        public async Task UpdateAsync_ShouldCallRepositoryUpdateAsync()
+        {
+            // Arrange
+            var userAlert = new UserAlert { Id = 1, UserId = 1, CurrencyId = 1, TargetPrice = 1.3m, IsActive = false };
+            _mockUserAlertRepository.Setup(repo => repo.UpdateAsync(userAlert)).Returns(Task.CompletedTask);
 
+            // Act
+            await _userAlertService.UpdateAsync(userAlert);
 
-    // ACT & ASSERT
-    // Tworzenie usługi jest konieczne dla poprawnego zakresu zmiennej userAlertService w Assert.ThrowsAsync
-    var mockWalletRepo = new Mock<IWalletRepository>(); 
-    var userAlertService = new UserAlertService(mockUserRepository.Object, mockWalletRepo.Object);
+            // Assert
+            _mockUserAlertRepository.Verify(repo => repo.UpdateAsync(userAlert), Times.Once);
+        }
 
-    await Assert.ThrowsAsync<InvalidOperationException>(() => 
-        userAlertService.CheckAndSendLowBalanceAlertAsync(userId, currencySymbol, lowBalanceThreshold));
-}
+        [Fact]
+        public async Task DeleteAsync_ShouldCallRepositoryDeleteAsync()
+        {
+            // Arrange
+            var userAlert = new UserAlert { Id = 1, UserId = 1, CurrencyId = 1, TargetPrice = 1.2m, IsActive = true };
+            _mockUserAlertRepository.Setup(repo => repo.DeleteAsync(userAlert)).Returns(Task.CompletedTask);
+
+            // Act
+            await _userAlertService.DeleteAsync(userAlert);
+
+            // Assert
+            _mockUserAlertRepository.Verify(repo => repo.DeleteAsync(userAlert), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetUserAlertsByUserIdAsync_ShouldReturnAlerts_WhenUserHasAlerts()
+        {
+            // Arrange
+            var userId = 1;
+            var expectedAlerts = new List<UserAlert>
+            {
+                new UserAlert { Id = 1, UserId = userId, CurrencyId = 1, TargetPrice = 1.2m, IsActive = true },
+                new UserAlert { Id = 2, UserId = userId, CurrencyId = 2, TargetPrice = 0.8m, IsActive = false }
+            };
+            _mockUserAlertRepository.Setup(repo => repo.GetUserAlertsByUserIdAsync(userId)).ReturnsAsync(expectedAlerts);
+
+            // Act
+            var result = await _userAlertService.GetUserAlertsByUserIdAsync(userId);
+
+            // Assert
+            result.Should().BeEquivalentTo(expectedAlerts);
+            _mockUserAlertRepository.Verify(repo => repo.GetUserAlertsByUserIdAsync(userId), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetUserAlertsByUserIdAsync_ShouldReturnEmptyList_WhenUserHasNoAlerts()
+        {
+            // Arrange
+            var userId = 1;
+            _mockUserAlertRepository.Setup(repo => repo.GetUserAlertsByUserIdAsync(userId)).ReturnsAsync(new List<UserAlert>());
+
+            // Act
+            var result = await _userAlertService.GetUserAlertsByUserIdAsync(userId);
+
+            // Assert
+            result.Should().BeEmpty();
+            _mockUserAlertRepository.Verify(repo => repo.GetUserAlertsByUserIdAsync(userId), Times.Once);
+        }
     }
 }

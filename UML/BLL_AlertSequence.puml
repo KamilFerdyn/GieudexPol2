@@ -1,0 +1,38 @@
+@startuml
+actor User as user
+participant "UserAlertService" as userAlertService
+participant "ExchangeRateService" as exchangeRateService
+participant "INotificationService" as notificationService
+participant "IUserAlertRepository" as userAlertRepo
+
+user -> userAlertService: SprawdzAlertCenowy(userId, alertId)
+activate userAlertService
+
+userAlertService -> userAlertRepo: GetUserAlertById(alertId)
+activate userAlertRepo
+userAlertRepo --> userAlertService: AlertUzytkownika
+deactivate userAlertRepo
+
+userAlertService -> exchangeRateService: GetCurrentExchangeRate(baseCurrency, targetCurrency)
+activate exchangeRateService
+exchangeRateService --> userAlertService: AktualnyKursWymiany
+deactivate exchangeRateService
+
+alt Jeśli alert jest aktywny i warunki spełnione
+    userAlertService -> notificationService: SendNotification(userId, "Alert cenowy!")
+    activate notificationService
+    notificationService --> userAlertService: PowiadomienieWysłane
+    deactivate notificationService
+
+    userAlertService -> userAlertRepo: DeactivateUserAlert(alertId)
+    activate userAlertRepo
+    userAlertRepo --> userAlertService: AlertDeaktywowany
+    deactivate userAlertRepo
+
+    userAlertService --> user: PowiadomienieWysłane
+else Jeśli alert nieaktywny lub warunki nie spełnione
+    userAlertService --> user: Brak akcji (Alert nieaktywny lub warunki niespełnione)
+end
+
+deactivate userAlertService
+@enduml

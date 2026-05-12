@@ -1,0 +1,160 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Application.Interfaces" {
+    interface IService<T> {
+        + Task<T> GetByIdAsync(int id)
+        + Task<IEnumerable<T>> GetAllAsync()
+        + Task AddAsync(T entity)
+        + Task UpdateAsync(T entity)
+        + Task DeleteAsync(T entity)
+    }
+
+    interface ICurrencyService {
+        + Task<Currency> GetBySymbolAsync(string symbol)
+    }
+
+    interface IExchangeRateService {
+        + Task<ExchangeRate> GetByCurrencyPairAsync(string baseCurrencySymbol, string targetCurrencySymbol)
+    }
+
+    interface ITransactionService {
+        + Task<IEnumerable<Transaction>> GetUserTransactionsAsync(int userId)
+    }
+
+    interface IUserAlertService {
+        + Task<IEnumerable<UserAlert>> GetUserAlertsByUserIdAsync(int userId)
+    }
+
+    interface IUserService {
+        + Task<User> GetByUsernameAsync(string username)
+    }
+
+    interface IWalletService {
+        + Task<IEnumerable<Wallet>> GetUserWalletsAsync(int userId)
+    }
+
+    IService <|-- ICurrencyService
+    IService <|-- IExchangeRateService
+    IService <|-- ITransactionService
+    IService <|-- IUserAlertService
+    IService <|-- IUserService
+    IService <|-- IWalletService
+}
+
+package "Application.Services" {
+    class CurrencyService {
+        - ICurrencyRepository _currencyRepository
+        + CurrencyService(ICurrencyRepository currencyRepository)
+        + Task<Currency> GetByIdAsync(int id)
+        + Task<IEnumerable<Currency>> GetAllAsync()
+        + Task AddAsync(Currency entity)
+        + Task UpdateAsync(Currency entity)
+        + Task DeleteAsync(Currency entity)
+        + Task<Currency> GetBySymbolAsync(string symbol)
+    }
+
+    class ExchangeRateService {
+        - IExchangeRateRepository _exchangeRateRepository
+        + ExchangeRateService(IExchangeRateRepository exchangeRateRepository)
+        + Task<ExchangeRate> GetByIdAsync(int id)
+        + Task<IEnumerable<ExchangeRate>> GetAllAsync()
+        + Task AddAsync(ExchangeRate entity)
+        + Task UpdateAsync(ExchangeRate entity)
+        + Task DeleteAsync(ExchangeRate entity)
+        + Task<ExchangeRate> GetByCurrencyPairAsync(string baseCurrencySymbol, string targetCurrencySymbol)
+    }
+
+    class TransactionService {
+        - ITransactionRepository _transactionRepository
+        + TransactionService(ITransactionRepository transactionRepository)
+        + Task<Transaction> GetByIdAsync(int id)
+        + Task<IEnumerable<Transaction>> GetAllAsync()
+        + Task AddAsync(Transaction entity)
+        + Task UpdateAsync(Transaction entity)
+        + Task DeleteAsync(Transaction entity)
+        + Task<IEnumerable<Transaction>> GetUserTransactionsAsync(int userId)
+    }
+
+    class UserAlertService {
+        - IUserAlertRepository _userAlertRepository
+        + UserAlertService(IUserAlertRepository userAlertRepository)
+        + Task<UserAlert> GetByIdAsync(int id)
+        + Task<IEnumerable<UserAlert>> GetAllAsync()
+        + Task AddAsync(UserAlert entity)
+        + Task UpdateAsync(UserAlert entity)
+        + Task DeleteAsync(UserAlert entity)
+        + Task<IEnumerable<UserAlert>> GetUserAlertsByUserIdAsync(int userId)
+    }
+
+    class UserService {
+        - IUserRepository _userRepository
+        + UserService(IUserRepository userRepository)
+        + Task<User> GetByIdAsync(int id)
+        + Task<IEnumerable<User>> GetAllAsync()
+        + Task AddAsync(User entity)
+        + Task UpdateAsync(User entity)
+        + Task DeleteAsync(User entity)
+        + Task<User> GetByUsernameAsync(string username)
+    }
+
+    class WalletService {
+        - IWalletRepository _walletRepository
+        + WalletService(IWalletRepository walletRepository)
+        + Task<Wallet> GetByIdAsync(int id)
+        + Task<IEnumerable<Wallet>> GetAllAsync()
+        + Task AddAsync(Wallet entity)
+        + Task UpdateAsync(Wallet entity)
+        + Task DeleteAsync(Wallet entity)
+        + Task<IEnumerable<Wallet>> GetUserWalletsAsync(int userId)
+    }
+
+    ICurrencyService <|.. CurrencyService
+    IExchangeRateService <|.. ExchangeRateService
+    ITransactionService <|.. TransactionService
+    IUserAlertService <|.. UserAlertService
+    IUserService <|.. UserService
+    IWalletService <|.. WalletService
+
+    CurrencyService .right.> ICurrencyRepository : uses
+    ExchangeRateService .right.> IExchangeRateRepository : uses
+    TransactionService .right.> ITransactionRepository : uses
+    UserAlertService .right.> IUserAlertRepository : uses
+    UserService .right.> IUserRepository : uses
+    WalletService .right.> IWalletRepository : uses
+}
+
+package "Domain.Entities" {
+    class Currency
+    class ExchangeRate
+    class Transaction
+    class UserAlert
+    class User
+    class Wallet
+}
+
+package "Infrastructure.Repositories" {
+    interface IRepository<T>
+    interface ICurrencyRepository
+    interface IExchangeRateRepository
+    interface ITransactionRepository
+    interface IUserAlertRepository
+    interface IUserRepository
+    interface IWalletRepository
+
+    IRepository <|-- ICurrencyRepository
+    IRepository <|-- IExchangeRateRepository
+    IRepository <|-- ITransactionRepository
+    IRepository <|-- IUserAlertRepository
+    IRepository <|-- IUserRepository
+    IRepository <|-- IWalletRepository
+}
+
+CurrencyService --> Currency
+ExchangeRateService --> ExchangeRate
+TransactionService --> Transaction
+UserAlertService --> UserAlert
+UserService --> User
+WalletService --> Wallet
+
+@enduml
