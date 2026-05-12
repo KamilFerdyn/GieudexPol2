@@ -1,7 +1,44 @@
+# Zależności i paczki
 node_modules/
 **/node_modules/
-dist/
-**/dist/
-.git/
+package-lock.json
+yarn.lock
+
+# Angular i Frontend
 .angular/
-**/.angular/
+**/dist/
+**/browser/
+.cache/
+.editorconfig
+**/*.spec.ts
+
+# .NET / C# (Kluczowe!)
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.suo
+**/TestResults/
+
+# Publikacja i artefakty
+publish/
+out/
+
+# Formaty binarne i multimedia (Cline i tak ich nie zrozumie)
+**/*.exe
+**/*.dll
+**/*.pdb
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.svg
+**/*.ico
+**/*.pdf
+
+# Logi i bazy danych
+*.log
+**/logs/
+**/*.db
+**/*.sqlite
