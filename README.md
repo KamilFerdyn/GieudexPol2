@@ -1,5 +1,8 @@
 # 💹 GieudexPol
 
+Adres strony:
+https://gieudexpol2-production.up.railway.app
+
 *wersja "pierwotna do edytkowania" przez pozostałych użytkownikow*
 
 > **Kryptonim projektowy:** `Waluty robią brrrrrrr`  
