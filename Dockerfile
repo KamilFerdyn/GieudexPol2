@@ -26,19 +26,16 @@ RUN dotnet build -c Release -o /app/build
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Copy frontend build output
-COPY --from=frontend-builder /app/dist/GieudexPol.Frontend ./wwwroot
+# Create wwwroot directory and copy all frontend files
+RUN mkdir -p wwwroot
+COPY --from=frontend-builder /app/dist/GieudexPol.Frontend/* wwwroot/
 
 # Copy backend build output
 COPY --from=backend-builder /app/build .
 
 # Set environment variables
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:80
-
-# Expose ports
-EXPOSE 80
-EXPOSE 443
+ENV ASPNETCORE_URLS=http://+:${PORT}
 
 # Set entry point
 ENTRYPOINT ["dotnet", "GieudexPol.API.dll"]
