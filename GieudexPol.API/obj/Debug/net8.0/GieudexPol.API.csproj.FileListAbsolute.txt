@@ -1,84 +1,229 @@
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.csproj.AssemblyReference.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.GeneratedMSBuildEditorConfig.editorconfig
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.AssemblyInfoInputs.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.AssemblyInfo.cs
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.csproj.CoreCompileInputs.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.MvcApplicationPartsAssemblyInfo.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.sourcelink.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\appsettings.Development.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\appsettings.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.staticwebassets.endpoints.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.exe
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.deps.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.runtimeconfig.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.pdb
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Application.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Domain.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Infrastructure.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Application.pdb
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Infrastructure.pdb
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Domain.pdb
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.MvcApplicationPartsAssemblyInfo.cs
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\scopedcss\bundle\GieudexPol.API.styles.css
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.json.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.development.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexP.5EF33F7E.Up2Date
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\refint\GieudexPol.API.dll
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.pdb
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.genruntimeconfig.cache
-c:\Users\wojci\Documents\Programowanie2\GieudexPol\GieudexPol.API\obj\Debug\net8.0\ref\GieudexPol.API.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\appsettings.Development.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\appsettings.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.staticwebassets.endpoints.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.exe
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.deps.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.runtimeconfig.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.API.pdb
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Application.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Domain.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Infrastructure.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Application.pdb
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Infrastructure.pdb
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\bin\Debug\net8.0\GieudexPol.Domain.pdb
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.csproj.AssemblyReference.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.GeneratedMSBuildEditorConfig.editorconfig
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.AssemblyInfoInputs.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.AssemblyInfo.cs
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.csproj.CoreCompileInputs.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.MvcApplicationPartsAssemblyInfo.cs
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.MvcApplicationPartsAssemblyInfo.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.sourcelink.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\scopedcss\bundle\GieudexPol.API.styles.css
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.json.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.development.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexP.5EF33F7E.Up2Date
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\refint\GieudexPol.API.dll
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.pdb
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\GieudexPol.API.genruntimeconfig.cache
-c:\Users\luczk\Desktop\GieudexPol\GieudexPol.API\obj\Debug\net8.0\ref\GieudexPol.API.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.AssemblyReference.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rpswa.dswa.cache.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.GeneratedMSBuildEditorConfig.editorconfig
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfoInputs.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfo.cs
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.CoreCompileInputs.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.sourcelink.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/appsettings.Development.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/appsettings.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.staticwebassets.endpoints.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.exe
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.deps.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.runtimeconfig.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.pdb
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Microsoft.OpenApi.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.pdb
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.pdb
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.pdb
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cs
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjimswa.dswa.cache.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/scopedcss/bundle/GieudexPol.API.styles.css
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.json.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.development.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexP.5EF33F7E.Up2Date
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/refint/GieudexPol.API.dll
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.pdb
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.genruntimeconfig.cache
+c:/Users/wojci/Documents/Programowanie2/GieudexPol/GieudexPol.API/obj/Debug/net8.0/ref/GieudexPol.API.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/appsettings.Development.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/appsettings.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.staticwebassets.endpoints.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.exe
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.deps.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.runtimeconfig.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.pdb
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Microsoft.OpenApi.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.pdb
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.pdb
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.pdb
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.AssemblyReference.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rpswa.dswa.cache.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.GeneratedMSBuildEditorConfig.editorconfig
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfoInputs.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfo.cs
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.CoreCompileInputs.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cs
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.sourcelink.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjimswa.dswa.cache.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/scopedcss/bundle/GieudexPol.API.styles.css
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.json.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.development.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexP.5EF33F7E.Up2Date
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/refint/GieudexPol.API.dll
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.pdb
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.genruntimeconfig.cache
+c:/Users/luczk/Desktop/GieudexPol/GieudexPol.API/obj/Debug/net8.0/ref/GieudexPol.API.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.AssemblyReference.cache
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfoInputs.cache
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.AssemblyInfo.cs
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.CoreCompileInputs.cache
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cs
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.MvcApplicationPartsAssemblyInfo.cache
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.sourcelink.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/refint/GieudexPol.API.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.pdb
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/appsettings.Development.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/appsettings.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.deps.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.runtimeconfig.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.API.pdb
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Application.pdb
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Infrastructure.pdb
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/GieudexPol.Domain.pdb
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/scopedcss/bundle/GieudexPol.API.styles.css
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets.build.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets.development.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.genruntimeconfig.cache
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/ref/GieudexPol.API.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets/msbuild.GieudexPol.API.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets/msbuild.build.GieudexPol.API.props
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.GieudexPol.API.props
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.GieudexPol.API.props
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/obj/Debug/net8.0/GieudexPol.API.csproj.CopyComplete
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Azure.Core.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Azure.Identity.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Humanizer.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Data.SqlClient.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Identity.Client.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Identity.Client.Extensions.Msal.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.CodeDom.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Composition.Convention.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Composition.Hosting.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Composition.Runtime.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Drawing.Common.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Memory.Data.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Runtime.Caching.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Security.Permissions.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/System.Windows.Extensions.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/unix/lib/net6.0/System.Drawing.Common.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
+/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.API/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll

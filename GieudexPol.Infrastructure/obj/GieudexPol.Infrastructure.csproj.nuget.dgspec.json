@@ -1,40 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Infrastructure\\GieudexPol.Infrastructure.csproj": {}
+    "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Infrastructure/GieudexPol.Infrastructure.csproj": {}
   },
   "projects": {
-    "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\GieudexPol.Application.csproj": {
+    "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/GieudexPol.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\GieudexPol.Application.csproj",
+        "projectUniqueName": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/GieudexPol.Application.csproj",
         "projectName": "GieudexPol.Application",
-        "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\GieudexPol.Application.csproj",
-        "packagesPath": "C:\\Users\\luczk\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\obj\\",
+        "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/GieudexPol.Application.csproj",
+        "packagesPath": "/Users/kamilferdyn/.nuget/packages/",
+        "outputPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\luczk\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/kamilferdyn/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj": {
-                "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj"
+              "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj": {
+                "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj"
               }
             }
           }
@@ -43,13 +36,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -70,33 +57,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj": {
+    "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj",
+        "projectUniqueName": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj",
         "projectName": "GieudexPol.Domain",
-        "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj",
-        "packagesPath": "C:\\Users\\luczk\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\obj\\",
+        "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj",
+        "packagesPath": "/Users/kamilferdyn/.nuget/packages/",
+        "outputPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\luczk\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/kamilferdyn/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -109,13 +89,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -136,44 +110,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Infrastructure\\GieudexPol.Infrastructure.csproj": {
+    "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Infrastructure/GieudexPol.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Infrastructure\\GieudexPol.Infrastructure.csproj",
+        "projectUniqueName": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Infrastructure/GieudexPol.Infrastructure.csproj",
         "projectName": "GieudexPol.Infrastructure",
-        "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Infrastructure\\GieudexPol.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\luczk\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Infrastructure\\obj\\",
+        "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Infrastructure/GieudexPol.Infrastructure.csproj",
+        "packagesPath": "/Users/kamilferdyn/.nuget/packages/",
+        "outputPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Infrastructure/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\luczk\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/kamilferdyn/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\GieudexPol.Application.csproj": {
-                "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Application\\GieudexPol.Application.csproj"
+              "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/GieudexPol.Application.csproj": {
+                "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Application/GieudexPol.Application.csproj"
               },
-              "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj": {
-                "projectPath": "c:\\Users\\luczk\\Desktop\\GieudexPol\\GieudexPol.Domain\\GieudexPol.Domain.csproj"
+              "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj": {
+                "projectPath": "/Users/kamilferdyn/Uczelnia/Tworzenie aplikacji internetowych i bazodanowych/GieudexPol-main/GieudexPol.Domain/GieudexPol.Domain.csproj"
               }
             }
           }
@@ -182,17 +149,21 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -209,7 +180,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

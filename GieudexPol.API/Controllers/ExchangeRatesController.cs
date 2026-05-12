@@ -39,7 +39,7 @@ namespace GieudexPol.API.Controllers
         public async Task<IActionResult> CreateExchangeRate([FromBody] ExchangeRate exchangeRate)
         {
             await _exchangeRateService.AddAsync(exchangeRate);
-            return CreatedAtAction(nameof(GetExchangeRateByCurrencyPair), new { baseCurrencySymbol = exchangeRate.BaseCurrencySymbol, targetCurrencySymbol = exchangeRate.TargetCurrencySymbol }, exchangeRate);
+            return CreatedAtAction(nameof(GetExchangeRateByCurrencyPair), new { id = exchangeRate.Id }, exchangeRate);
         }
 
         [HttpPut("{id}")]

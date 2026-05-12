@@ -1,4 +1,5 @@
 using GieudexPol.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,59 +7,41 @@ namespace GieudexPol.Infrastructure.Repositories
 {
     public class GenericRepository<T> : IRepository<T> where T : class
     {
-        // W celach demonstracyjnych, używamy prostej listy jako in-memory bazy danych.
-        // W rzeczywistej aplikacji użyto by tutaj kontekstu bazy danych (np. Entity Framework).
-        protected readonly List<T> _data = new List<T>();
-        private int _nextId = 1;
+        protected readonly ApplicationDbContext _context;
+        protected readonly DbSet<T> _dbSet;
+
+        public GenericRepository(ApplicationDbContext context)
+        {
+            _context = context;
+            _dbSet = context.Set<T>();
+        }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            // W prawdziwej implementacji użylibyśmy LINQ do filtrowania po ID.
-            // Tutaj symulujemy to przez Find dla prostych obiektów.
-            return await Task.FromResult(_data.Find(item => (int)item.GetType().GetProperty("Id").GetValue(item) == id));
+            return await _dbSet.FindAsync(id);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await Task.FromResult(_data);
+            return await _dbSet.ToListAsync();
         }
 
         public async Task AddAsync(T entity)
         {
-            var idProperty = entity.GetType().GetProperty("Id");
-            if (idProperty != null && (int)idProperty.GetValue(entity) == 0)
-            {
-                idProperty.SetValue(entity, _nextId++);
-            }
-            _data.Add(entity);
-            await Task.CompletedTask;
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            var idProperty = entity.GetType().GetProperty("Id");
-            if (idProperty == null)
-            {
-                throw new InvalidOperationException("Entity does not have an 'Id' property.");
-            }
-
-            var id = (int)idProperty.GetValue(entity);
-            var existingEntity = _data.Find(item => (int)item.GetType().GetProperty("Id").GetValue(item) == id);
-            if (existingEntity != null)
-            {
-                _data[_data.IndexOf(existingEntity)] = entity;
-            }
-            else
-            {
-                throw new KeyNotFoundException($"Entity with ID {id} not found.");
-            }
-            await Task.CompletedTask;
+            _dbSet.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(T entity)
         {
-            _data.Remove(entity);
-            await Task.CompletedTask;
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
