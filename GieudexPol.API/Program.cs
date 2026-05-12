@@ -85,6 +85,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Enable static files middleware
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
