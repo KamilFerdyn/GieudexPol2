@@ -105,6 +105,122 @@ Transactions: Nieusuwalny rejestr wszystkich operacji (kupno/sprzedaż) wraz z n
 UserAlerts: Konfiguracja powiadomień – wiąże użytkownika z progiem cenowym danej waluty.
 ---
 
+
+
+
+## 🚀 **Wdrożenie na Railway.app**
+
+Aplikacja została wdrożona na platformie Railway.app i jest dostępna pod adresem:
+👉 [https://gieudexpol2-production.up.railway.app](https://gieudexpol2-production.up.railway.app)
+
+
+## 🏗️ **Architektura Clean Architecture**
+
+Projekt oparty jest na wzorcu **Clean Architecture**, który zapewnia separację logiki biznesowej od infrastruktury:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                        Client (Frontend)                      │
+└───────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌───────────────────────────────────────────────────────────────┐
+│                        API Layer (GieudexPol.API)             │
+│  ┌─────────────────┐            ┌─────────────────────────────┐  │
+│  │  Kontrolery    │            │  Middleware (JWT, CORS)     │  │
+│  └─────────────────┘            └─────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌───────────────────────────────────────────────────────────────┐
+│                     Application Layer (GieudexPol.Application)  │
+│  ┌─────────────────┐            ┌─────────────────────────────┐  │
+│  │  Usługi Biznesowe│            │  Interfejsy Repozytoriów   │  │
+│  └─────────────────┘            └─────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌───────────────────────────────────────────────────────────────┐
+│                  Domain Layer (GieudexPol.Domain)             │
+│  ┌─────────────────┐            ┌─────────────────────────────┐  │
+│  │  Entities       │            │  Reguły Biznesowe           │  │
+│  └─────────────────┘            └─────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌───────────────────────────────────────────────────────────────┐
+│                Infrastructure Layer (GieudexPol.Infrastructure)│
+│  ┌─────────────────┐            ┌─────────────────────────────┐  │
+│  │  Repozytoria    │            │  Entity Framework Core      │  │
+│  └─────────────────┘            └─────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### 📂 **Struktura katalogów**
+
+```
+GieudexPol/
+├── GieudexPol.Domain/          # Warstwa Domain (Entities, reguły biznesowe)
+├── GieudexPol.Application/    # Warstwa Application (Usługi, Interfejsy)
+├── GieudexPol.Infrastructure/  # Warstwa Infrastructure (Repozytoria, EF Core)
+├── GieudexPol.API/             # Warstwa API (Kontrolery, Middleware)
+└── GieudexPol.Frontend/        # Frontend Angular
+```
+
+---
+
+## 🔧 **Co zrobiliśmy**
+
+### 🔄 **Rozwiązane problemy**
+
+1. **Frontend:**
+   - Zbudowany w Angularze z użyciem TypeScript
+   - Komponenty: dashboard, wallet, trading-form, alerts, history, chart, orderbook
+   - Routing zdefiniowany w `app.routes.ts`
+
+2. **Backend:**
+   - API REST z kontrolerami dla wszystkich funkcjonalności
+   - Autoryzacja JWT
+   - Obsługa CORS
+   - Swagger UI dla dokumentacji API
+
+3. **Baza danych:**
+   - SQL Server z Entity Framework Core
+   - Migracje bazy danych
+   - Encje: User, Currency, ExchangeRate, Transaction, Wallet, UserAlert
+
+4. **Docker:**
+   - Wielostopniowy Dockerfile
+   - Kontenery dla frontendu i backendu
+   - Poprawne kopiowanie plików statycznych
+   - Wdrożenie na Railway.app
+
+### 🎯 **Najważniejsze zmiany**
+
+1. **Dockerfile:**
+   - Poprawione kopiowanie plików frontendu do katalogu `wwwroot`
+   - Dodana weryfikacja kopiowania plików
+
+2. **Program.cs:**
+   - Dodane middleware dla serwowania plików statycznych
+   - Zapewniony poprawny routing Angulara z `MapFallbackToFile("index.html")`
+
+3. **Wdrożenie:**
+   - Aplikacja dostępna na Railway.app
+   - Automatyczne budowanie i wdrażanie z GitHub
+   - Publiczny adres URL: `https://gieudexpol-production.up.railway.app`
+
+
+---
+
+
+
+
+
+
+
+
+
 ## 🚀 Instalacja i Uruchomienie (Dev Environment)
 
 1. **Wymagania:** .NET 8 SDK, Node.js, MS SQL Server.
