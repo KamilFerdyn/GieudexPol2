@@ -213,6 +213,110 @@ GieudexPol/
 
 ---
 
+__Kroki do uruchomienia aplikacji GieudexPol lokalnie:__
+
+---
+
+### 📋 __Wymagania wstępne__
+
+1. Zainstalowany __Docker__ (wersja 20.10 lub nowsza)
+2. Zainstalowany __Docker Compose__ (wersja 1.29 lub nowsza)
+3. Zainstalowany __Git__ (do klonowania repozytorium)
+
+---
+
+### 🛠️ __Kroki uruchomienia:__
+
+#### 1. __Sklonuj repozytorium__
+
+```bash
+git clone https://github.com/kacluc/GieudexPol.git
+cd GieudexPol
+```
+
+#### 2. __Uruchom aplikację__
+
+```bash
+docker-compose up -d
+```
+
+- Ta komenda:
+
+  - Buduje obrazy Docker
+  - Uruchamia kontenery z bazą danych, backendem i frontendem
+  - `-d` uruchamia w tle (detached mode)
+
+#### 3. __Sprawdź status kontenerów__
+
+```bash
+docker-compose ps
+```
+
+- Powinieneś zobaczyć trzy kontenery:
+
+  - `gieudexpol-db` (baza danych SQL Server)
+  - `gieudexpol-api` (backend .NET)
+  - `gieudexpol-nginx` (frontend Angular)
+
+#### 4. __Dostęp do aplikacji__
+
+Otwórz w przeglądarce:
+
+- __Frontend:__ [](http://localhost)<http://localhost>
+- __Backend API:__ [](http://localhost:5010)<http://localhost:5010>
+- __Dokumentacja API (Swagger):__ [](http://localhost:5010/swagger/index.html)<http://localhost:5010/swagger/index.html>
+
+---
+
+### 🔄 __Jeśli potrzebujesz zbudować aplikację od nowa__
+
+```bash
+# Zatrzymaj i usuń istniejące kontenery
+docker-compose down
+
+# Uruchom ponownie
+docker-compose up -d --build
+```
+
+---
+
+### 🔧 __Jeśli wystąpią problemy:__
+
+#### 1. __Zastosuj migracje bazy danych__
+
+```bash
+docker-compose exec gieudexpol-api dotnet ef database update --project ../GieudexPol.Infrastructure --startup-project .
+```
+
+#### 2. __Sprawdź logi aplikacji__
+
+```bash
+docker-compose logs
+```
+
+#### 3. __Zatrzymaj aplikację__
+
+```bash
+docker-compose down
+```
+
+---
+
+### 💡 __Szczegóły techniczne:__
+
+- Aplikacja używa __Docker Compose__ do uruchamiania wszystkich komponentów w izolowanych kontenerach
+- __Frontend__ jest serwowany przez NGINX
+- __Backend__ jest napisany w .NET 8 Core
+- __Baza danych__ to SQL Server
+- __Swagger UI__ dostępny pod `/swagger` dla dokumentacji API
+
+---
+
+### 🎯 __Podsumowanie:__
+
+1. Sklonuj repozytorium
+2. Uruchom `docker-compose up -d`
+3. Otwórz aplikację w przeglądarce pod `http://localhost`
 
 
 
