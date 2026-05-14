@@ -1,0 +1,240 @@
+<main class="rates-page">
+  <section class="rates-header">
+    <div>
+      <p class="eyebrow">Kursy walut</p>
+      <h1>Historia kursow kupna i sprzedazy</h1>
+    </div>
+    <a class="home-link" routerLink="/">Start</a>
+  </section>
+
+  <section class="toolbar" aria-label="Filtry kursow walut">
+    <label>
+      <span>Waluta</span>
+      <select name="currency" [(ngModel)]="currency">
+        <option *ngFor="let item of currencies" [value]="item">{{ item }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Zrodlo</span>
+      <input
+        name="source"
+        list="sources"
+        [(ngModel)]="source"
+        placeholder="MOCK_BANK_A"
+      />
+      <datalist id="sources">
+        <option value="MOCK_BANK_A"></option>
+      </datalist>
+    </label>
+
+    <label>
+      <span>Od</span>
+      <input name="from" type="date" [(ngModel)]="from" />
+    </label>
+
+    <label>
+      <span>Do</span>
+      <input name="to" type="date" [(ngModel)]="to" />
+    </label>
+
+    <button type="button" (click)="fetchData()" [disabled]="loading">
+      {{ loading ? 'Pobieranie...' : 'Pobierz dane' }}
+    </button>
+  </section>
+
+  <div class="status-row" [class.is-loading]="loading" [class.has-error]="errorMessage">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span>{{ statusMessage }}</span>
+    <span *ngIf="lastLoadedAt" class="status-time">
+      Ostatnio: {{ lastLoadedAt | date:'HH:mm:ss' }}
+    </span>
+  </div>
+
+  <p *ngIf="errorMessage" class="alert">{{ errorMessage }}</p>
+
+  <section class="summary-grid" aria-label="Podsumowanie kursow">
+    <article>
+      <span>Liczba dni</span>
+      <strong>{{ chartPoints.length }}</strong>
+    </article>
+    <article>
+      <span>Najnowszy kurs kupna</span>
+      <strong>{{ latestPoint?.buyPrice ?? 0 | number:'1.4-4' }}</strong>
+    </article>
+    <article>
+      <span>Najnowszy kurs sprzedazy</span>
+      <strong>{{ latestPoint?.sellPrice ?? 0 | number:'1.4-4' }}</strong>
+    </article>
+    <article>
+      <span>Najnowszy wpis tabeli</span>
+      <strong>{{ latestSelectedRate?.effectiveDate | date:'yyyy-MM-dd' }}</strong>
+    </article>
+  </section>
+
+  <section class="chart-section">
+    <div class="section-heading">
+      <div>
+        <h2>Wykres liniowy</h2>
+        <span>Kupno i sprzedaz w czasie</span>
+      </div>
+      <div class="legend" aria-label="Legenda wykresu">
+        <span><i class="buy-line"></i> BuyPrice</span>
+        <span><i class="sell-line"></i> SellPrice</span>
+      </div>
+    </div>
+
+    <div class="chart-wrap" *ngIf="chartPoints.length > 0; else noChartData">
+      <svg
+        class="rate-chart"
+        role="img"
+        [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight"
+        preserveAspectRatio="none"
+        (mousemove)="selectChartPoint($event)"
+        (mouseleave)="clearSelectedPoint()"
+      >
+        <g class="grid">
+          <line
+            *ngFor="let line of gridLines"
+            [attr.x1]="chartPadding.left"
+            [attr.x2]="chartWidth - chartPadding.right"
+            [attr.y1]="line.y"
+            [attr.y2]="line.y"
+          ></line>
+          <text
+            *ngFor="let line of gridLines"
+            [attr.x]="chartPadding.left - 10"
+            [attr.y]="line.y + 4"
+            text-anchor="end"
+          >
+            {{ line.label | number:'1.2-2' }}
+          </text>
+        </g>
+
+        <line
+          class="axis"
+          [attr.x1]="chartPadding.left"
+          [attr.x2]="chartWidth - chartPadding.right"
+          [attr.y1]="chartHeight - chartPadding.bottom"
+          [attr.y2]="chartHeight - chartPadding.bottom"
+        ></line>
+        <line
+          class="axis"
+          [attr.x1]="chartPadding.left"
+          [attr.x2]="chartPadding.left"
+          [attr.y1]="chartPadding.top"
+          [attr.y2]="chartHeight - chartPadding.bottom"
+        ></line>
+
+        <polyline class="line buy" [attr.points]="buyLinePoints"></polyline>
+        <polyline class="line sell" [attr.points]="sellLinePoints"></polyline>
+
+        <g *ngIf="selectedPoint as point" class="selection">
+          <line
+            class="selection-line"
+            [attr.x1]="selectedPointX"
+            [attr.x2]="selectedPointX"
+            [attr.y1]="chartPadding.top"
+            [attr.y2]="chartHeight - chartPadding.bottom"
+          ></line>
+          <circle class="selection-dot buy-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedBuyY" r="5"></circle>
+          <circle class="selection-dot sell-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedSellY" r="5"></circle>
+
+          <g class="tooltip" [attr.transform]="'translate(' + selectedTooltipX + ' ' + selectedTooltipY + ')'">
+            <rect width="176" height="76" rx="6"></rect>
+            <text x="12" y="22">{{ point.date | date:'yyyy-MM-dd' }}</text>
+            <text x="12" y="44">Kupno: {{ point.buyPrice | number:'1.4-4' }}</text>
+            <text x="12" y="62">Sprzedaz: {{ point.sellPrice | number:'1.4-4' }}</text>
+          </g>
+        </g>
+
+        <text
+          class="date-label"
+          [attr.x]="chartPadding.left"
+          [attr.y]="chartHeight - 12"
+          text-anchor="start"
+        >
+          {{ firstPointDate | date:'yyyy-MM-dd' }}
+        </text>
+        <text
+          class="date-label"
+          [attr.x]="chartWidth - chartPadding.right"
+          [attr.y]="chartHeight - 12"
+          text-anchor="end"
+        >
+          {{ lastPointDate | date:'yyyy-MM-dd' }}
+        </text>
+      </svg>
+    </div>
+
+    <ng-template #noChartData>
+      <div class="chart-empty">
+        Brak punktow do narysowania wykresu.
+      </div>
+    </ng-template>
+  </section>
+
+  <section class="table-section">
+    <div class="section-heading">
+      <h2>Dane do wykresu</h2>
+      <span>{{ currency }} / {{ source }}</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>BuyPrice</th>
+            <th>SellPrice</th>
+            <th>Spread</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let point of chartPoints; trackBy: trackByDate">
+            <td>{{ point.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ point.buyPrice | number:'1.4-4' }}</td>
+            <td>{{ point.sellPrice | number:'1.4-4' }}</td>
+            <td>{{ spread(point) | number:'1.4-4' }}</td>
+          </tr>
+          <tr *ngIf="!loading && chartPoints.length === 0">
+            <td colspan="4" class="empty">Brak danych dla wybranego zakresu.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="table-section">
+    <div class="section-heading">
+      <h2>Najnowsze kursy</h2>
+      <span>{{ source }}</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Waluta</th>
+            <th>Nazwa</th>
+            <th>Data</th>
+            <th>Kupno</th>
+            <th>Sprzedaz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rate of latestRates; trackBy: trackByCurrency">
+            <td>{{ rate.currencyCode }}</td>
+            <td>{{ rate.currencyName }}</td>
+            <td>{{ rate.effectiveDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ rate.buyPrice | number:'1.4-4' }}</td>
+            <td>{{ rate.sellPrice | number:'1.4-4' }}</td>
+          </tr>
+          <tr *ngIf="!loading && latestRates.length === 0">
+            <td colspan="5" class="empty">Brak najnowszych kursow dla tego zrodla.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
