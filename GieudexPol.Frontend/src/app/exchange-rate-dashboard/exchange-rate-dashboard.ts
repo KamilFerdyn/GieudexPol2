@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import {
@@ -12,16 +11,21 @@ import { ExchangeRateApiService } from '../services/exchange-rate-api.service';
 
 @Component({
   selector: 'app-exchange-rate-dashboard',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './exchange-rate-dashboard.html',
   styleUrl: './exchange-rate-dashboard.css',
 })
 export class ExchangeRateDashboard implements OnInit {
+  private readonly nbpSourceCode = 'NBP';
   readonly currencies = ['EUR', 'USD', 'CHF', 'GBP'];
   readonly sources = [
     {
       code: 'MOCK_BANK_A',
       label: 'MOCK_BANK_A - fallback dev',
+    },
+    {
+      code: 'NBP',
+      label: 'NBP - realne kursy',
     },
   ];
   readonly rangePresets = [
@@ -48,9 +52,11 @@ export class ExchangeRateDashboard implements OnInit {
   chartPoints: ExchangeRateChartPoint[] = [];
   latestRates: ExchangeRateTableRow[] = [];
   loading = false;
+  syncingNbp = false;
   errorMessage = '';
   statusMessage = 'Gotowe do pobrania danych.';
   lastLoadedAt: Date | null = null;
+  lastNbpSyncSummary = '';
   selectedPointIndex: number | null = null;
 
   constructor(
@@ -63,69 +69,103 @@ export class ExchangeRateDashboard implements OnInit {
   }
 
   async fetchData(): Promise<void> {
-    if (this.loading) {
+    if (this.loading || this.syncingNbp) {
       return;
     }
 
+    await this.fetchDataWithOptionalNbpSync();
+  }
+
+  onSourceChange(source: string): void {
+    this.source = source;
+    void this.fetchData();
+  }
+
+  private async fetchDataWithOptionalNbpSync(): Promise<void> {
     this.errorMessage = '';
-    this.statusMessage = 'Pobieram dane z backendu...';
+    this.statusMessage = this.source === this.nbpSourceCode
+      ? 'Sprawdzam lokalne dane NBP...'
+      : 'Pobieram dane z backendu...';
     this.selectedPointIndex = null;
 
-    if (!this.currency || !this.source || !this.from || !this.to) {
-      this.errorMessage = 'Uzupelnij walute, zrodlo i zakres dat.';
-      this.statusMessage = 'Wymagane sa wszystkie filtry.';
-      return;
-    }
-
-    if (this.from > this.to) {
-      this.errorMessage = 'Data poczatkowa nie moze byc pozniejsza niz koncowa.';
-      this.statusMessage = 'Zakres dat wymaga poprawy.';
+    if (!this.validateFilters()) {
       return;
     }
 
     this.loading = true;
 
     try {
-      const [chartResult, latestResult] = await Promise.allSettled([
-        firstValueFrom(
-          this.exchangeRateApi
-            .getChartData(this.currency, this.source, this.from, this.to)
-            .pipe(timeout(15000)),
-        ),
-        firstValueFrom(
-          this.exchangeRateApi
-            .getLatestRates(this.source)
-            .pipe(timeout(15000)),
-        ),
-      ]);
+      await this.loadDataFromBackend();
 
-      if (chartResult.status === 'fulfilled') {
-        this.chartPoints = chartResult.value.points ?? [];
-      } else {
-        this.chartPoints = [];
-        this.errorMessage = 'Nie udalo sie pobrac danych wykresu. Sprawdz backend albo zakres dat.';
+      if (this.shouldAutoSyncNbp()) {
+        this.loading = false;
+        this.statusMessage = 'Nie ma lokalnych danych NBP dla tego zakresu. Pobieram z NBP...';
+        this.changeDetector.detectChanges();
+
+        const synced = await this.runNbpSync();
+
+        if (synced) {
+          await this.fetchDataWithoutAutoSync();
+        }
+
+        return;
       }
 
-      if (latestResult.status === 'fulfilled') {
-        this.latestRates = latestResult.value;
-      } else {
-        this.latestRates = [];
-        this.errorMessage = this.errorMessage
-          ? `${this.errorMessage} Nie udalo sie pobrac tabeli najnowszych kursow.`
-          : 'Nie udalo sie pobrac tabeli najnowszych kursow.';
-      }
-
-      if (!this.errorMessage) {
-        this.statusMessage = this.chartPoints.length
-          ? `Gotowe. Wczytano ${this.chartPoints.length} dni kursowych.`
-          : 'Gotowe, ale backend nie zwrocil danych dla wybranych filtrow.';
-      } else {
-        this.statusMessage = 'Pobieranie zakonczone bledem.';
-      }
-
-      this.lastLoadedAt = new Date();
+      this.finishFetchStatus();
     } finally {
       this.loading = false;
+      this.changeDetector.detectChanges();
+    }
+  }
+
+  private async fetchDataWithoutAutoSync(): Promise<void> {
+    this.errorMessage = '';
+    this.statusMessage = 'Pobieram zapisane dane z backendu...';
+    this.selectedPointIndex = null;
+
+    if (!this.validateFilters()) {
+      return;
+    }
+
+    this.loading = true;
+
+    try {
+      await this.loadDataFromBackend();
+      this.finishFetchStatus();
+    } finally {
+      this.loading = false;
+      this.changeDetector.detectChanges();
+    }
+  }
+
+  private async runNbpSync(): Promise<boolean> {
+    this.errorMessage = '';
+    this.lastNbpSyncSummary = '';
+    this.statusMessage = 'Synchronizuje kursy z NBP...';
+
+    if (!this.validateFilters()) {
+      return false;
+    }
+
+    this.syncingNbp = true;
+
+    try {
+      const result = await firstValueFrom(
+        this.exchangeRateApi
+          .syncNbpRates(this.from, this.to)
+          .pipe(timeout(60000)),
+      );
+
+      this.lastNbpSyncSummary =
+        `NBP: dodano ${result.added}, pominieto ${result.skipped}, tabel ${result.tablesFetched}.`;
+      this.statusMessage = 'Synchronizacja NBP zakonczona. Odswiezam dane...';
+      return true;
+    } catch {
+      this.errorMessage = 'Nie udalo sie zsynchronizowac kursow z NBP. Sprawdz czy backend ma dostep do internetu i czy zakres dat jest poprawny.';
+      this.statusMessage = 'Synchronizacja NBP zakonczona bledem.';
+      return false;
+    } finally {
+      this.syncingNbp = false;
       this.changeDetector.detectChanges();
     }
   }
@@ -277,6 +317,69 @@ export class ExchangeRateDashboard implements OnInit {
     }
 
     void this.fetchData();
+  }
+
+  private validateFilters(): boolean {
+    if (!this.currency || !this.source || !this.from || !this.to) {
+      this.errorMessage = 'Uzupelnij walute, zrodlo i zakres dat.';
+      this.statusMessage = 'Wymagane sa wszystkie filtry.';
+      return false;
+    }
+
+    if (this.from > this.to) {
+      this.errorMessage = 'Data poczatkowa nie moze byc pozniejsza niz koncowa.';
+      this.statusMessage = 'Zakres dat wymaga poprawy.';
+      return false;
+    }
+
+    return true;
+  }
+
+  private async loadDataFromBackend(): Promise<void> {
+    const [chartResult, latestResult] = await Promise.allSettled([
+      firstValueFrom(
+        this.exchangeRateApi
+          .getChartData(this.currency, this.source, this.from, this.to)
+          .pipe(timeout(15000)),
+      ),
+      firstValueFrom(
+        this.exchangeRateApi
+          .getLatestRates(this.source)
+          .pipe(timeout(15000)),
+      ),
+    ]);
+
+    if (chartResult.status === 'fulfilled') {
+      this.chartPoints = chartResult.value.points ?? [];
+    } else {
+      this.chartPoints = [];
+      this.errorMessage = 'Nie udalo sie pobrac danych wykresu. Sprawdz backend albo zakres dat.';
+    }
+
+    if (latestResult.status === 'fulfilled') {
+      this.latestRates = latestResult.value;
+    } else {
+      this.latestRates = [];
+      this.errorMessage = this.errorMessage
+        ? `${this.errorMessage} Nie udalo sie pobrac tabeli najnowszych kursow.`
+        : 'Nie udalo sie pobrac tabeli najnowszych kursow.';
+    }
+
+    this.lastLoadedAt = new Date();
+  }
+
+  private shouldAutoSyncNbp(): boolean {
+    return this.source === this.nbpSourceCode && !this.errorMessage && this.chartPoints.length === 0;
+  }
+
+  private finishFetchStatus(): void {
+    if (!this.errorMessage) {
+      this.statusMessage = this.chartPoints.length
+        ? `Gotowe. Wczytano ${this.chartPoints.length} dni kursowych.`
+        : 'Gotowe, ale backend nie zwrocil danych dla wybranych filtrow.';
+    } else {
+      this.statusMessage = 'Pobieranie zakonczone bledem.';
+    }
   }
 
   private formatDateInput(date: Date): string {

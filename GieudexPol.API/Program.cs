@@ -3,12 +3,15 @@ using GieudexPol.Application.Services;
 using GieudexPol.Infrastructure.Repositories;
 using GieudexPol.Infrastructure;
 using GieudexPol.Infrastructure.Data;
+using GieudexPol.Infrastructure.ExternalServices.Nbp;
+using GieudexPol.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +68,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IUserAlertService, UserAlertService>();
+builder.Services.AddScoped<IExchangeRateSyncService, ExchangeRateSyncService>();
+
+builder.Services.AddHttpClient<INbpExchangeRateClient, NbpExchangeRateClient>(client =>
+{
+    client.BaseAddress = new Uri("https://api.nbp.pl/api/");
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
 
 // Add repositories
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();

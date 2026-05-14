@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   ExchangeRateChartResponse,
   ExchangeRateTableRow,
+  NbpSyncResult,
 } from '../models/exchange-rate.models';
 
 @Injectable({
@@ -33,5 +34,13 @@ export class ExchangeRateApiService {
     const params = new HttpParams().set('source', source);
 
     return this.http.get<ExchangeRateTableRow[]>(`${this.apiUrl}/latest`, { params });
+  }
+
+  syncNbpRates(from: string, to: string): Observable<NbpSyncResult> {
+    const params = new HttpParams()
+      .set('from', from)
+      .set('to', to);
+
+    return this.http.post<NbpSyncResult>(`${this.apiUrl}/sync/nbp`, null, { params });
   }
 }

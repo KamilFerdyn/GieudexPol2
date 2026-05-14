@@ -10,11 +10,17 @@ namespace GieudexPol.API.Controllers
     [Route("api/[controller]")]
     public class ExchangeRatesController : ControllerBase
     {
-        private readonly IExchangeRateService _exchangeRateService;
+        private static readonly DateTime MinimumSyncDate = new DateTime(2026, 1, 1);
 
-        public ExchangeRatesController(IExchangeRateService exchangeRateService)
+        private readonly IExchangeRateService _exchangeRateService;
+        private readonly IExchangeRateSyncService _exchangeRateSyncService;
+
+        public ExchangeRatesController(
+            IExchangeRateService exchangeRateService,
+            IExchangeRateSyncService exchangeRateSyncService)
         {
             _exchangeRateService = exchangeRateService;
+            _exchangeRateSyncService = exchangeRateSyncService;
         }
 
         [HttpGet("{baseCurrencySymbol}/{targetCurrencySymbol}")]
@@ -76,6 +82,35 @@ namespace GieudexPol.API.Controllers
         {
             var exchangeRates = await _exchangeRateService.GetAllAsync();
             return Ok(exchangeRates);
+        }
+
+        [HttpPost("sync/nbp")]
+        public async Task<IActionResult> SyncNbpRates(
+            [FromQuery] DateTime from,
+            [FromQuery] DateTime to,
+            CancellationToken cancellationToken)
+        {
+            if (from.Date > to.Date)
+            {
+                return BadRequest("From date cannot be later than to date.");
+            }
+
+            if (from.Date < MinimumSyncDate)
+            {
+                return BadRequest("NBP sync from date cannot be earlier than 2026-01-01.");
+            }
+
+            if (to.Date > DateTime.Today)
+            {
+                return BadRequest("NBP sync to date cannot be later than today.");
+            }
+
+            var result = await _exchangeRateSyncService.SyncNbpRatesAsync(
+                from.Date,
+                to.Date,
+                cancellationToken);
+
+            return Ok(result);
         }
 
         [HttpPost]

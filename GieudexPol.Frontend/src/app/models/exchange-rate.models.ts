@@ -21,3 +21,13 @@ export interface ExchangeRateTableRow {
   buyPrice: number;
   sellPrice: number;
 }
+
+export interface NbpSyncResult {
+  from: string;
+  to: string;
+  added: number;
+  skipped: number;
+  tablesFetched: number;
+  processedRanges: string[];
+  warnings: string[];
+}

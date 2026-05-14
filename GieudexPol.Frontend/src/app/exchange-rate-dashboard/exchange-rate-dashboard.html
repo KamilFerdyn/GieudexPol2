@@ -4,7 +4,6 @@
       <p class="eyebrow">Kursy walut</p>
       <h1>Historia kursow kupna i sprzedazy</h1>
     </div>
-    <a class="home-link" routerLink="/">Start</a>
   </section>
 
   <section class="toolbar" aria-label="Filtry kursow walut">
@@ -25,7 +24,7 @@
 
     <label>
       <span>Zrodlo</span>
-      <select name="source" [(ngModel)]="source">
+      <select name="source" [ngModel]="source" (ngModelChange)="onSourceChange($event)">
         <option *ngFor="let item of sources" [value]="item.code">{{ item.label }}</option>
       </select>
     </label>
@@ -40,7 +39,7 @@
       <input name="to" type="date" [(ngModel)]="to" />
     </label>
 
-    <button type="button" (click)="fetchData()" [disabled]="loading">
+    <button type="button" (click)="fetchData()" [disabled]="loading || syncingNbp">
       {{ loading ? 'Pobieranie...' : 'Pobierz dane' }}
     </button>
   </section>
@@ -54,7 +53,7 @@
           type="button"
           class="quick-button"
           (click)="applyRangePreset(preset)"
-          [disabled]="loading"
+          [disabled]="loading || syncingNbp"
         >
           {{ preset.label }}
         </button>
@@ -62,11 +61,11 @@
     </div>
     <div class="fallback-note">
       <strong>Fallback dev:</strong>
-      <span>MOCK_BANK_A korzysta z danych seedowanych lokalnie w trybie Development.</span>
+      <span>MOCK_BANK_A zostaje lokalnie, NBP pobiera sie automatycznie przy braku danych.</span>
     </div>
   </section>
 
-  <div class="status-row" [class.is-loading]="loading" [class.has-error]="errorMessage">
+  <div class="status-row" [class.is-loading]="loading || syncingNbp" [class.has-error]="errorMessage">
     <span class="status-dot" aria-hidden="true"></span>
     <span>{{ statusMessage }}</span>
     <span *ngIf="lastLoadedAt" class="status-time">
@@ -74,6 +73,7 @@
     </span>
   </div>
 
+  <p *ngIf="lastNbpSyncSummary" class="sync-summary">{{ lastNbpSyncSummary }}</p>
   <p *ngIf="errorMessage" class="alert">{{ errorMessage }}</p>
 
   <section class="summary-grid" aria-label="Podsumowanie kursow">
