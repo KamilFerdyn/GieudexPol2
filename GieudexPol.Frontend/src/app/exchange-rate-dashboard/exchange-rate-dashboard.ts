@@ -18,6 +18,19 @@ import { ExchangeRateApiService } from '../services/exchange-rate-api.service';
 })
 export class ExchangeRateDashboard implements OnInit {
   readonly currencies = ['EUR', 'USD', 'CHF', 'GBP'];
+  readonly sources = [
+    {
+      code: 'MOCK_BANK_A',
+      label: 'MOCK_BANK_A - fallback dev',
+    },
+  ];
+  readonly rangePresets = [
+    { label: '7D', days: 7 },
+    { label: '30D', days: 30 },
+    { label: '90D', days: 90 },
+    { label: 'YTD', ytd: true },
+    { label: 'DEV', from: '2026-01-01' },
+  ];
   readonly chartWidth = 920;
   readonly chartHeight = 320;
   readonly chartPadding = {
@@ -242,6 +255,28 @@ export class ExchangeRateDashboard implements OnInit {
 
   clearSelectedPoint(): void {
     this.selectedPointIndex = null;
+  }
+
+  selectCurrency(currency: string): void {
+    this.currency = currency;
+    void this.fetchData();
+  }
+
+  applyRangePreset(preset: { days?: number; ytd?: boolean; from?: string }): void {
+    const today = new Date();
+    this.to = this.formatDateInput(today);
+
+    if (preset.from) {
+      this.from = preset.from;
+    } else if (preset.ytd) {
+      this.from = `${today.getFullYear()}-01-01`;
+    } else if (preset.days) {
+      const startDate = new Date(today);
+      startDate.setDate(startDate.getDate() - preset.days);
+      this.from = this.formatDateInput(startDate);
+    }
+
+    void this.fetchData();
   }
 
   private formatDateInput(date: Date): string {

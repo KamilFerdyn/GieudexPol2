@@ -8,24 +8,26 @@
   </section>
 
   <section class="toolbar" aria-label="Filtry kursow walut">
-    <label>
+    <div class="control-group currency-control">
       <span>Waluta</span>
-      <select name="currency" [(ngModel)]="currency">
-        <option *ngFor="let item of currencies" [value]="item">{{ item }}</option>
-      </select>
-    </label>
+      <div class="segmented-control" role="group" aria-label="Waluta">
+        <button
+          *ngFor="let item of currencies"
+          type="button"
+          class="segment-button"
+          [class.is-active]="currency === item"
+          (click)="selectCurrency(item)"
+        >
+          {{ item }}
+        </button>
+      </div>
+    </div>
 
     <label>
       <span>Zrodlo</span>
-      <input
-        name="source"
-        list="sources"
-        [(ngModel)]="source"
-        placeholder="MOCK_BANK_A"
-      />
-      <datalist id="sources">
-        <option value="MOCK_BANK_A"></option>
-      </datalist>
+      <select name="source" [(ngModel)]="source">
+        <option *ngFor="let item of sources" [value]="item.code">{{ item.label }}</option>
+      </select>
     </label>
 
     <label>
@@ -41,6 +43,27 @@
     <button type="button" (click)="fetchData()" [disabled]="loading">
       {{ loading ? 'Pobieranie...' : 'Pobierz dane' }}
     </button>
+  </section>
+
+  <section class="quick-panel" aria-label="Szybkie akcje">
+    <div>
+      <span class="quick-label">Zakres</span>
+      <div class="quick-actions">
+        <button
+          *ngFor="let preset of rangePresets"
+          type="button"
+          class="quick-button"
+          (click)="applyRangePreset(preset)"
+          [disabled]="loading"
+        >
+          {{ preset.label }}
+        </button>
+      </div>
+    </div>
+    <div class="fallback-note">
+      <strong>Fallback dev:</strong>
+      <span>MOCK_BANK_A korzysta z danych seedowanych lokalnie w trybie Development.</span>
+    </div>
   </section>
 
   <div class="status-row" [class.is-loading]="loading" [class.has-error]="errorMessage">

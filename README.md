@@ -333,3 +333,46 @@ docker-compose down
    dotnet restore
    dotnet ef database update
    dotnet run --project GieudexPol.API
+   ```
+
+---
+
+## Development seed kursow walut
+
+Backend ma devowy fallback danych kursowych w `DevelopmentDataSeeder`.
+Seeder dziala tylko w srodowisku `Development` i nie pobiera danych z internetu.
+
+Co seed dodaje:
+- waluty: `EUR`, `USD`, `CHF`, `GBP`
+- zrodlo kursow: `MOCK_BANK_A`
+- kursy kupna/sprzedazy od `2026-01-01` do dzisiaj, tylko dni robocze
+
+Jak z niego skorzystac lokalnie:
+
+```powershell
+dotnet ef database update --project .\GieudexPol.Infrastructure --startup-project .\GieudexPol.API
+dotnet run --project .\GieudexPol.API --launch-profile http
+```
+
+Po starcie API w trybie Development seed wykona sie automatycznie. Dane sa idempotentne:
+jesli dana waluta, zrodlo albo kurs dla tej daty juz istnieje, nie zostanie dodany drugi raz.
+
+Szybki test:
+
+```text
+http://localhost:5265/api/ExchangeRates/latest?source=MOCK_BANK_A
+http://localhost:5265/api/ExchangeRates/chart?currency=EUR&source=MOCK_BANK_A&from=2026-01-01&to=2026-05-14
+```
+
+Frontend dev server korzysta z proxy `/api -> http://localhost:5265`, wiec lokalnie odpalaj:
+
+```powershell
+cd .\GieudexPol.Frontend
+npm.cmd start
+```
+
+Potem wejdz na:
+
+```text
+http://localhost:4200/rates
+```

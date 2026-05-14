@@ -49,6 +49,7 @@ h2 {
 }
 
 .toolbar,
+.quick-panel,
 .summary-grid article,
 .chart-section,
 .table-section {
@@ -71,10 +72,17 @@ label {
   gap: 7px;
 }
 
-label span {
+label span,
+.control-group > span,
+.quick-label {
   color: #5b6b84;
   font-size: 0.86rem;
   font-weight: 700;
+}
+
+.control-group {
+  display: grid;
+  gap: 7px;
 }
 
 select,
@@ -105,6 +113,73 @@ button {
 button:disabled {
   cursor: wait;
   opacity: 0.65;
+}
+
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  min-height: 42px;
+}
+
+.segment-button,
+.quick-button {
+  min-height: 42px;
+  border: 1px solid #c8d2df;
+  background: #f8fafc;
+  color: #24324a;
+}
+
+.segment-button {
+  padding: 0 8px;
+}
+
+.segment-button.is-active,
+.quick-button:hover:not(:disabled) {
+  border-color: #2357b7;
+  background: #2357b7;
+  color: #fff;
+}
+
+.quick-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: 8px;
+}
+
+.quick-panel > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-button {
+  width: auto;
+  min-width: 64px;
+  padding: 0 12px;
+}
+
+.fallback-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+  color: #42526a;
+  font-size: 0.9rem;
+}
+
+.fallback-note strong {
+  color: #172033;
 }
 
 .status-row {
@@ -352,6 +427,16 @@ tbody tr:hover {
   .toolbar,
   .summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quick-panel,
+  .quick-panel > div:first-child {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fallback-note {
+    justify-content: flex-start;
   }
 
   .status-row {
