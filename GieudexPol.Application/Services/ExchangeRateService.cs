@@ -1,6 +1,9 @@
+using GieudexPol.Application.DTOs;
 using GieudexPol.Application.Interfaces;
 using GieudexPol.Domain.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GieudexPol.Application.Services
@@ -42,6 +45,38 @@ namespace GieudexPol.Application.Services
         public async Task<ExchangeRate> GetByCurrencyPairAsync(string baseCurrencySymbol, string targetCurrencySymbol)
         {
             return await _exchangeRateRepository.GetByCurrencyPairAsync(baseCurrencySymbol, targetCurrencySymbol);
+        }
+
+        public async Task<IEnumerable<ExchangeRateChartPointDto>> GetRatesForChartAsync(
+            string currencySymbol,
+            string sourceCode,
+            DateTime from,
+            DateTime to)
+        {
+            return await _exchangeRateRepository.GetRatesForChartAsync(currencySymbol, sourceCode, from, to);
+        }
+
+        public async Task<ExchangeRateChartResponseDto> GetChartDataAsync(
+            string currencyCode,
+            string sourceCode,
+            DateTime from,
+            DateTime to)
+        {
+            var points = await _exchangeRateRepository.GetChartDataAsync(currencyCode, sourceCode, from, to);
+
+            return new ExchangeRateChartResponseDto
+            {
+                CurrencyCode = currencyCode,
+                SourceCode = sourceCode,
+                From = from.Date,
+                To = to.Date,
+                Points = points.ToList()
+            };
+        }
+
+        public async Task<IEnumerable<ExchangeRateTableRowDto>> GetLatestRatesAsync(string sourceCode)
+        {
+            return await _exchangeRateRepository.GetLatestRatesAsync(sourceCode);
         }
     }
 }

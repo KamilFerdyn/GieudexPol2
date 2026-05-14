@@ -1,7 +1,7 @@
+using System;
 using GieudexPol.Application.Interfaces;
 using GieudexPol.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GieudexPol.API.Controllers
@@ -26,6 +26,49 @@ namespace GieudexPol.API.Controllers
                 return NotFound();
             }
             return Ok(exchangeRate);
+        }
+
+        [HttpGet("chart")]
+        public async Task<IActionResult> GetChartData(
+            [FromQuery] string currency,
+            [FromQuery] string source,
+            [FromQuery] DateTime from,
+            [FromQuery] DateTime to)
+        {
+            if (string.IsNullOrWhiteSpace(currency))
+            {
+                return BadRequest("Currency query parameter is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return BadRequest("Source query parameter is required.");
+            }
+
+            if (from > to)
+            {
+                return BadRequest("From date cannot be later than to date.");
+            }
+
+            var chartData = await _exchangeRateService.GetChartDataAsync(
+                currency.Trim().ToUpperInvariant(),
+                source.Trim().ToUpperInvariant(),
+                from.Date,
+                to.Date);
+
+            return Ok(chartData);
+        }
+
+        [HttpGet("latest")]
+        public async Task<IActionResult> GetLatestRates([FromQuery] string source = "MOCK_BANK_A")
+        {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return BadRequest("Source query parameter is required.");
+            }
+
+            var rates = await _exchangeRateService.GetLatestRatesAsync(source.Trim().ToUpperInvariant());
+            return Ok(rates);
         }
 
         [HttpGet]

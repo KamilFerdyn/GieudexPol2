@@ -2,6 +2,7 @@ using GieudexPol.Application.Interfaces;
 using GieudexPol.Application.Services;
 using GieudexPol.Infrastructure.Repositories;
 using GieudexPol.Infrastructure;
+using GieudexPol.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +69,7 @@ builder.Services.AddScoped<IUserAlertService, UserAlertService>();
 // Add repositories
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
+builder.Services.AddScoped<IRateSourceRepository, RateSourceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
@@ -99,5 +101,11 @@ app.MapControllers();
 
 // Add fallback for Angular routing
 app.MapFallbackToFile("index.html");
+
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    await DevelopmentDataSeeder.SeedAsync(scope.ServiceProvider);
+}
 
 app.Run();
