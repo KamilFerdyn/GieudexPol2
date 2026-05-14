@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jcLtcCSY3+I=",
+  "dgSpecHash": "r09s1xOX8fU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\wojci\\Documents\\GitHub\\GieudexPol\\GieudexPol.API\\GieudexPol.API.csproj",
+  "projectFilePath": "C:\\Users\\wojci\\Documents\\Programowanie2\\GieudexPol\\GieudexPol.API\\GieudexPol.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wojci\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\wojci\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

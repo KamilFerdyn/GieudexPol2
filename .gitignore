@@ -1,35 +1,75 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
+# -------------------------
+# .NET / C#
+# -------------------------
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Visual Studio / VS Code / user-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Build / test results
+TestResults/
+[Bb]uild[Ll]og.*
+*.coverage
+*.coveragexml
+coverage/
+**/coverage/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+
+# -------------------------
+# Angular / Node frontend
+# -------------------------
+node_modules/
+**/node_modules/
+
+dist/
+**/dist/
+out-tsc/
+tmp/
+
 .angular/
+**/.angular/
+.cache/
+**/.cache/
 
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
-
-# Environment files
-/.env
-
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# .NET Core / C# specific files
-**/bin
-**/obj
-*.user
-*.suo
-.vs/
+*.tsbuildinfo
+
+# -------------------------
+# Environment / secrets
+# -------------------------
+.env
+.env.*
+*.env
+
+# Dozwolone przykłady env
+!.env.example
+!.env.template
+
+# -------------------------
+# Docker / local overrides
+# -------------------------
+docker-compose.override.yml
+
+# -------------------------
+# OS junk
+# -------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
