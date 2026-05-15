@@ -1,16 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Kursy walut (PLN do innych walut)
+    // Kursy walut względem PLN (1 PLN = X waluty)
     const exchangeRates = {
-        USD: 4.25,  // 1 USD = 4.25 PLN
-        EUR: 4.50,  // 1 EUR = 4.50 PLN
-        GBP: 5.30,  // 1 GBP = 5.30 PLN
-        JPY: 0.032, // 1 JPY = 0.032 PLN
-        CHF: 4.60   // 1 CHF = 4.60 PLN
+        PLN: 1,    // Referencyjna waluta
+        USD: 4.25, // 1 USD = 4.25 PLN
+        EUR: 4.50, // 1 EUR = 4.50 PLN
+        GBP: 5.30, // 1 GBP = 5.30 PLN
+        JPY: 0.032, // 1 JPY = 0.032 PLN (1 PLN = ~31.25 JPY)
+        CHF: 4.60  // 1 CHF = 4.60 PLN
     };
+
+    // Funkcja do konwersji kwoty z waluty źródłowej na PLN
+    function convertToPLN(amount, currency) {
+        if (currency === 'PLN') {
+            return amount;
+        }
+        return amount * exchangeRates[currency];
+    }
+
+    // Funkcja do konwersji kwoty z PLN na walutę docelową
+    function convertFromPLN(amountInPLN, currency) {
+        if (currency === 'PLN') {
+            return amountInPLN;
+        }
+        return amountInPLN / exchangeRates[currency];
+    }
 
     // Funkcja do obliczania wymiany walut
     function calculateExchange() {
         const amountInput = document.getElementById('amount');
+        const sourceCurrency = document.getElementById('sourceCurrency');
         const targetCurrency = document.getElementById('targetCurrency');
         const feeInput = document.getElementById('fee');
         const resultAmountElement = document.getElementById('resultAmount');
@@ -19,21 +37,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const amount = parseFloat(amountInput.value);
         const fee = parseFloat(feeInput.value);
-        const currency = targetCurrency.value;
+        const source = sourceCurrency.value;
+        const target = targetCurrency.value;
 
-        if (isNaN(amount) || isNaN(fee) || !currency) {
+        if (isNaN(amount) || isNaN(fee) || !source || !target) {
             alert('Proszę uzupełnić wszystkie pola poprawnie.');
             return;
         }
 
-        // Obliczanie kwoty w walucie docelowej
-        let exchangedAmount;
-        if (currency === 'JPY') {
-            // Dla JPY kurs jest odwrócony (1 PLN = 31.25 JPY)
-            exchangedAmount = amount / exchangeRates[currency];
-        } else {
-            exchangedAmount = amount / exchangeRates[currency];
-        }
+        // Konwersja kwoty z waluty źródłowej na PLN
+        const amountInPLN = convertToPLN(amount, source);
+
+        // Konwersja kwoty z PLN na walutę docelową
+        const exchangedAmount = convertFromPLN(amountInPLN, target);
 
         // Obliczanie prowizji
         const feeAmount = exchangedAmount * (fee / 100);
@@ -42,9 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalAmount = exchangedAmount - feeAmount;
 
         // Wyświetlanie wyników
-        resultAmountElement.textContent = `${exchangedAmount.toFixed(2)} ${currency}`;
-        resultFeeElement.textContent = `Prowizja: ${feeAmount.toFixed(2)} ${currency} (${fee}%)`;
-        resultTotalElement.textContent = `Kwota netto: ${totalAmount.toFixed(2)} ${currency}`;
+        resultAmountElement.textContent = `${exchangedAmount.toFixed(2)} ${target}`;
+        resultFeeElement.textContent = `Prowizja: ${feeAmount.toFixed(2)} ${target} (${fee}%)`;
+        resultTotalElement.textContent = `Kwota netto: ${totalAmount.toFixed(2)} ${target}`;
     }
 
     // Dodanie event listenera do przycisku "Oblicz"
