@@ -8,5 +8,8 @@ namespace GieudexPol.Application.Interfaces
             DateTime from,
             DateTime to,
             CancellationToken cancellationToken = default);
+
+        Task<IReadOnlyList<NbpExchangeRateTableDto>> GetLatestExchangeRatesAsync(
+            CancellationToken cancellationToken = default);
     }
 }

@@ -1,22 +1,22 @@
 using GieudexPol.Application.Interfaces;
 using GieudexPol.Application.Services;
-using GieudexPol.Infrastructure.Repositories;
 using GieudexPol.Infrastructure;
 using GieudexPol.Infrastructure.Data;
 using GieudexPol.Infrastructure.ExternalServices.Nbp;
+using GieudexPol.Infrastructure.Repositories;
 using GieudexPol.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -62,6 +62,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Register services
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -78,12 +79,17 @@ builder.Services.AddHttpClient<INbpExchangeRateClient, NbpExchangeRateClient>(cl
 
 // Add repositories
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
-builder.Services.AddScoped<IRateSourceRepository, RateSourceRepository>();
+builder.Services.AddScoped<IExchangeRateRepository>(provider =>
+{
+    var dbContext = provider.GetRequiredService<ApplicationDbContext>();
+    var nbpExchangeRateClient = provider.GetRequiredService<INbpExchangeRateClient>();
+    return new ExchangeRateRepository(dbContext, nbpExchangeRateClient);
+});
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IUserAlertRepository, UserAlertRepository>();
+builder.Services.AddScoped<IRateSourceRepository, RateSourceRepository>();
 
 var app = builder.Build();
 
@@ -111,11 +117,5 @@ app.MapControllers();
 
 // Add fallback for Angular routing
 app.MapFallbackToFile("index.html");
-
-if (app.Environment.IsDevelopment())
-{
-    using var scope = app.Services.CreateScope();
-    await DevelopmentDataSeeder.SeedAsync(scope.ServiceProvider);
-}
 
 app.Run();

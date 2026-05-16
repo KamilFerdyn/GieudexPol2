@@ -66,11 +66,11 @@ namespace GieudexPol.API.Controllers
         }
 
         [HttpGet("latest")]
-        public async Task<IActionResult> GetLatestRates([FromQuery] string source = "MOCK_BANK_A")
+        public async Task<IActionResult> GetLatestRates([FromQuery] string source = "NBP")
         {
             if (string.IsNullOrWhiteSpace(source))
             {
-                return BadRequest("Source query parameter is required.");
+                source = "NBP";
             }
 
             var rates = await _exchangeRateService.GetLatestRatesAsync(source.Trim().ToUpperInvariant());
