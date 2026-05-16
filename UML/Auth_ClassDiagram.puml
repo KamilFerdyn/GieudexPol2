@@ -1,0 +1,160 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "GieudexPol.Domain.Auth" {
+    class User {
+        + Guid Id
+        + string Email
+        + string HashedPassword
+        + UpdateEmail(newEmail: string)
+        + UpdatePassword(newHashedPassword: string)
+    }
+
+    interface IUserRepository {
+        + Task<User> GetByEmailAsync(email: string)
+        + Task AddAsync(user: User)
+        + Task UpdateAsync(user: User)
+    }
+
+    class UserAlreadyExistsException
+    class InvalidCredentialsException
+    class UserNotFoundException
+
+    IUserRepository <|.. User
+}
+
+package "GieudexPol.Infrastructure.Auth" {
+    class ApplicationUser {
+        // extends IdentityUser
+    }
+
+    class UserRepository {
+        - UserManager<ApplicationUser> _userManager
+        + UserRepository(userManager: UserManager<ApplicationUser>)
+        + Task<User> GetByEmailAsync(email: string)
+        + Task AddAsync(user: User)
+        + Task UpdateAsync(user: User)
+    }
+
+    class JwtService {
+        - IConfiguration _configuration
+        + JwtService(configuration: IConfiguration)
+        + string GenerateToken(userId: string, email: string)
+    }
+
+    class AuthDbContext {
+        + AuthDbContext(options: DbContextOptions<AuthDbContext>)
+        # OnModelCreating(builder: ModelBuilder)
+    }
+
+    UserRepository .right.> ApplicationUser : uses
+    UserRepository .right.> User : uses
+    UserRepository .right.> IUserRepository : implements
+    AuthDbContext .right.> ApplicationUser : contains
+}
+
+package "GieudexPol.Application.Auth" {
+    package "Commands" {
+        class RegisterUserCommand {
+            + RegisterRequest RegisterRequest
+        }
+        class LoginUserCommand {
+            + LoginRequest LoginRequest
+        }
+    }
+
+    package "DTOs" {
+        class RegisterRequest {
+            + string Email
+            + string Password
+            + string ConfirmPassword
+        }
+        class LoginRequest {
+            + string Email
+            + string Password
+        }
+        class AuthResponse {
+            + string Token
+            + string Email
+        }
+    }
+
+    package "Services" {
+        class AuthService {
+            - IUserRepository _userRepository
+            - JwtService _jwtService
+            - UserManager<ApplicationUser> _userManager
+            - SignInManager<ApplicationUser> _signInManager
+            + AuthService(...)
+            + Task<AuthResponse> Handle(command: RegisterUserCommand, ...)
+            + Task<AuthResponse> Handle(command: LoginUserCommand, ...)
+        }
+    }
+
+    RegisterUserCommand ..> AuthResponse
+    LoginUserCommand ..> AuthResponse
+    AuthService .right.> IUserRepository : uses
+    AuthService .right.> JwtService : uses
+    AuthService .right.> ApplicationUser : uses
+    AuthService .right.> RegisterUserCommand : handles
+    AuthService .right.> LoginUserCommand : handles
+}
+
+package "GieudexPol.API.Controllers" {
+    class AuthController {
+        - IMediator _mediator
+        + AuthController(mediator: IMediator)
+        + Register(request: RegisterRequest): ActionResult<AuthResponse>
+        + Login(request: LoginRequest): ActionResult<AuthResponse>
+    }
+
+    AuthController .right.> IMediator : uses
+    AuthController .right.> RegisterRequest : receives
+    AuthController .right.> LoginRequest : receives
+    AuthController .right.> AuthResponse : returns
+}
+
+package "GieudexPol.Frontend" {
+    package "src.app.features.auth" {
+        class AuthModule
+        class AuthRoutingModule
+        class LoginComponent
+        class RegisterComponent
+
+        package "services" {
+            class AuthService <<angular service>> {
+                - apiUrl: string
+                + register(email: string, password: string): Promise<void>
+                + login(email: string, password: string): Promise<void>
+                + logout(): void
+                + getToken(): string | null
+                + isAuthenticated(): boolean
+            }
+        }
+
+        package "guards" {
+            class AuthGuard <<angular guard>> {
+                + canActivate(...): boolean | UrlTree
+            }
+        }
+    }
+
+    LoginComponent .right.> AuthService : uses
+    RegisterComponent .right.> AuthService : uses
+    AuthGuard .right.> AuthService : uses
+
+    AuthRoutingModule .right.> LoginComponent : routes to
+    AuthRoutingModule .right.> RegisterComponent : routes to
+
+    package "src.app" {
+        class AppRoutesConfig <<routing module>> {
+            + routes: Routes
+        }
+    }
+
+    AppRoutesConfig .right.> AuthModule : lazy loads
+    AppRoutesConfig .right.> AuthGuard : uses
+}
+
+
+@enduml

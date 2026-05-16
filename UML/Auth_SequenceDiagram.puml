@@ -1,0 +1,117 @@
+@startuml
+actor User as user
+participant "Frontend (Angular)" as frontend
+participant "AuthService (Angular)" as frontendAuthService
+participant "API Gateway (AuthController)" as apiGateway
+participant "AuthService (Application)" as applicationAuthService
+participant "IUserRepository (Domain)" as userRepository
+participant "JwtService (Infrastructure)" as jwtService
+participant "UserManager<ApplicationUser> (Infrastructure)" as userManager
+participant "SignInManager<ApplicationUser> (Infrastructure)" as signInManager
+database "AuthDbContext (Infrastructure)" as dbContext
+
+== Rejestracja ==
+user -> frontend: Kliknięcie "Zarejestruj"
+activate frontend
+frontend -> frontend: Wyświetlenie formularza rejestracji
+user -> frontend: Wprowadzenie danych (email, hasło, potwierdzenie)
+frontend -> frontend: Walidacja danych (klient)
+frontend -> frontendAuthService: register(email, password)
+activate frontendAuthService
+frontendAuthService -> apiGateway: POST /api/Auth/register {email, password, confirmPassword}
+activate apiGateway
+
+apiGateway -> applicationAuthService: Handle(RegisterUserCommand)
+activate applicationAuthService
+
+applicationAuthService -> userRepository: GetByEmailAsync(email)
+activate userRepository
+userRepository --> applicationAuthService: null (użytkownik nie istnieje)
+deactivate userRepository
+
+applicationAuthService -> userRepository: AddAsync(new User(id, email, hashedPassword))
+activate userRepository
+userRepository --> applicationAuthService: User dodany
+deactivate userRepository
+
+applicationAuthService -> jwtService: GenerateToken(userId, email)
+activate jwtService
+jwtService --> applicationAuthService: JWT Token
+deactivate jwtService
+
+applicationAuthService --> apiGateway: AuthResponse {token, email}
+deactivate applicationAuthService
+
+apiGateway --> frontendAuthService: 200 OK {token, email}
+deactivate apiGateway
+
+frontendAuthService -> frontend: Zapisanie tokenu i emaila w localStorage
+frontendAuthService --> frontend: Sukces rejestracji
+deactivate frontendAuthService
+frontend -> user: Przekierowanie do /auth/login
+deactivate frontend
+
+== Logowanie ==
+user -> frontend: Kliknięcie "Zaloguj"
+activate frontend
+frontend -> frontend: Wyświetlenie formularza logowania
+user -> frontend: Wprowadzenie danych (email, hasło)
+frontend -> frontend: Walidacja danych (klient)
+frontend -> frontendAuthService: login(email, password)
+activate frontendAuthService
+frontendAuthService -> apiGateway: POST /api/Auth/login {email, password}
+activate apiGateway
+
+apiGateway -> applicationAuthService: Handle(LoginUserCommand)
+activate applicationAuthService
+
+applicationAuthService -> userManager: FindByEmailAsync(email)
+activate userManager
+userManager --> applicationAuthService: ApplicationUser
+deactivate userManager
+
+applicationAuthService -> signInManager: CheckPasswordSignInAsync(applicationUser, password, false)
+activate signInManager
+signInManager --> applicationAuthService: SignInResult.Success
+deactivate signInManager
+
+applicationAuthService -> userRepository: GetByEmailAsync(email)
+activate userRepository
+userRepository --> applicationAuthService: User
+deactivate userRepository
+
+applicationAuthService -> jwtService: GenerateToken(userId, email)
+activate jwtService
+jwtService --> applicationAuthService: JWT Token
+deactivate jwtService
+
+applicationAuthService --> apiGateway: AuthResponse {token, email}
+deactivate applicationAuthService
+
+apiGateway --> frontendAuthService: 200 OK {token, email}
+deactivate apiGateway
+
+frontendAuthService -> frontend: Zapisanie tokenu i emaila w localStorage
+frontendAuthService --> frontend: Sukces logowania
+deactivate frontendAuthService
+frontend -> user: Przekierowanie do / (strony głównej)
+deactivate frontend
+
+== Weryfikacja autoryzacji (AuthGuard) ==
+frontend -> frontend: Próba dostępu do trasy zabezpieczonej (np. /rates)
+activate frontend
+frontend -> frontend: Router aktywuje AuthGuard
+frontend -> frontendAuthService: isAuthenticated()
+activate frontendAuthService
+frontendAuthService -> frontendAuthService: Sprawdzenie localStorage dla 'authToken'
+alt Jeśli token istnieje
+    frontendAuthService --> frontend: true
+    deactivate frontendAuthService
+    frontend -> frontend: Kontynuacja do zabezpieczonej trasy
+else Jeśli token nie istnieje
+    frontendAuthService --> frontend: false
+    deactivate frontendAuthService
+    frontend -> frontend: Router przekierowuje do /auth/login
+end
+deactivate frontend
+@enduml

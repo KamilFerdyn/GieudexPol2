@@ -62,7 +62,7 @@ System oparty jest na wzorcu **Clean Architecture**, co zapewnia separację logi
 
 ### 3. Funkcjonalności (Scope)
 Funkcjonalności Użytkownika:
-- Rejestracja i logowanie: Bezpieczny dostęp do konta z opcjonalną weryfikacją dwuskładnikową (2FA).
+- **Uwierzytelnianie (Logowanie i Rejestracja):** Zaimplementowano kompletny mechanizm rejestracji i logowania z walidacją danych po stronie serwera i klienta. Domyślna strona startowa aplikacji to ekran logowania, a dostęp do głównych funkcjonalności wymaga autoryzacji.
 
 - Portfel cyfrowy: Przejrzysty podgląd salda oraz zarządzanie środkami dostępnymi do handlu.
 
