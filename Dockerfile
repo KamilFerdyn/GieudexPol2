@@ -30,16 +30,19 @@ RUN dotnet build GieudexPol.API.csproj -c Release -o /app/build
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Create wwwroot directory and copy all frontend files
-RUN mkdir -p wwwroot
-COPY --from=frontend-builder /app/dist/GieudexPol.Frontend/* wwwroot/
+# NAPRAWIONO: Kopiujemy CAŁY katalog dist do folderu wwwroot bez używania gwiazdki,
+# co zapobiega gubieniu struktury plików i katalogów Angulara.
+# COPY --from=frontend-builder /app/dist/GieudexPol.Frontend wwwroot/
+COPY --from=frontend-builder /app/dist/GieudexPol.Frontend/browser wwwroot/
+
 
 # Copy backend build output
 COPY --from=backend-builder /app/build .
 
 # Set environment variables
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:${PORT}
+# ENV ASPNETCORE_URLS=http://+:${PORT}
+ENV ASPNETCORE_URLS=http://0.0.0.0:80
 
 # Set entry point
 ENTRYPOINT ["dotnet", "GieudexPol.API.dll"]

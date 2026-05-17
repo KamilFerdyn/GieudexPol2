@@ -1,5 +1,6 @@
 using GieudexPol.Application.Interfaces;
 using GieudexPol.Domain.Entities;
+using GieudexPol.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace GieudexPol.Infrastructure.Repositories
     public class WalletRepository : IWalletRepository
     {
         // Założyłem standardową nazwę DbContextu. Jeśli w projekcie nazywa się inaczej (np. AppDbContext), zmień ją poniżej.
-        private readonly DbContext _context; 
+        private readonly ApplicationDbContext _context; 
         private readonly DbSet<Wallet> _dbSet;
 
-        public WalletRepository(DbContext context)
+        public WalletRepository(ApplicationDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<Wallet>();
