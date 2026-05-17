@@ -25,13 +25,15 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<void> {
-    const response = await this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).toPromise();
-    if (response?.token) {
-      localStorage.setItem('authToken', response.token);
-      localStorage.setItem('userEmail', response.email);
+    async login(email: string, password: string): Promise<void> {
+      const response = await this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).toPromise();
+      if (response?.token) {
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('userEmail', response.email);
+        // PRZEKIEROWANIE DO DASHBOARDU PO PŁYWNEJ AUTORYZACJI
+        this.router.navigate(['/dashboard']); 
+      }
     }
-  }
 
   logout(): void {
     localStorage.removeItem('authToken');

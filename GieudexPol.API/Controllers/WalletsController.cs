@@ -1,6 +1,7 @@
 using GieudexPol.Application.Interfaces;
 using GieudexPol.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -57,16 +58,40 @@ namespace GieudexPol.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWallet(int id)
+        /// <summary>
+        /// Executes a trade transaction by debiting the source wallet and crediting the destination wallet.
+        /// </summary>
+        [HttpPost("trade")]
+        public async Task<IActionResult> ExecuteTrade([FromQuery] int userId, [FromBody] TradeRequest request)
         {
-            var wallet = await _walletService.GetByIdAsync(id);
-            if (wallet == null)
+            try
             {
-                return NotFound();
+                await _walletService.ExecuteTradeTransactionAsync(
+                    userId, 
+                    request.FromCurrencyId, 
+                    request.AmountFrom, 
+                    request.ToCurrencyId, 
+                    request.AmountTo
+                );
+                return Ok("Trade executed successfully.");
             }
-            await _walletService.DeleteAsync(wallet);
-            return NoContent();
+            catch (InvalidOperationException ex) when (ex.Message.Contains("Niewystarczające środki"))
+            {
+                return BadRequest(new { error = "Transaction failed", message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Internal Server Error", message = ex.Message });
+            }
         }
+    }
+
+    // Ta klasa musi być tutaj, aby kontroler widział strukturę przesyłanego obiektu JSON
+    public class TradeRequest
+    {
+        public int FromCurrencyId { get; set; }
+        public decimal AmountFrom { get; set; }
+        public int ToCurrencyId { get; set; }
+        public decimal AmountTo { get; set; }
     }
 }

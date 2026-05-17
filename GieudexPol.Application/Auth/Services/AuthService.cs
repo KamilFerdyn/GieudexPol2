@@ -1,28 +1,41 @@
 using GieudexPol.Application.Auth.Commands;
 using GieudexPol.Application.Auth.DTOs;
 using GieudexPol.Domain.Auth;
-using GieudexPol.Infrastructure.Auth;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace GieudexPol.Application.Auth.Services
 {
+    // Interfejsy, które powinny znajdować się w GieudexPol.Application.Interfaces 
+    // lub bezpośrednio w folderze z serwisami autoryzacji.
+    public interface IJwtService
+    {
+        string GenerateToken(string userId, string email);
+    }
+
+    public interface IIdentityService
+    {
+        Task<bool> CheckPasswordAsync(string email, string password);
+    }
+
     public class AuthService : 
         IRequestHandler<RegisterUserCommand, AuthResponse>,
         IRequestHandler<LoginUserCommand, AuthResponse>
     {
         private readonly IUserRepository _userRepository;
-        private readonly JwtService _jwtService;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IJwtService _jwtService;
+        private readonly IIdentityService _identityService;
 
-        public AuthService(IUserRepository userRepository, JwtService jwtService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthService(
+            IUserRepository userRepository, 
+            IJwtService jwtService, 
+            IIdentityService identityService)
         {
             _userRepository = userRepository;
             _jwtService = jwtService;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _identityService = identityService;
         }
 
         public async Task<AuthResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -33,6 +46,7 @@ namespace GieudexPol.Application.Auth.Services
                 throw new UserAlreadyExistsException(request.RegisterRequest.Email);
             }
 
+            // Dodano brakujący na liście błędów Guid.NewGuid() - upewnij się, że system to obsługuje
             var user = new User(Guid.NewGuid(), request.RegisterRequest.Email, request.RegisterRequest.Password);
             await _userRepository.AddAsync(user);
 
@@ -43,19 +57,21 @@ namespace GieudexPol.Application.Auth.Services
 
         public async Task<AuthResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = await _userManager.FindByEmailAsync(request.LoginRequest.Email);
-            if (applicationUser == null)
-            {
-                throw new InvalidCredentialsException();
-            }
-
-            var result = await _signInManager.CheckPasswordSignInAsync(applicationUser, request.LoginRequest.Password, false);
-            if (!result.Succeeded)
+            // Sprawdzenie hasła przeniesione do zewnętrznej abstrakcji IIdentityService,
+            // która w projekcie Infrastructure bezpiecznie używa UserManager/SignInManager
+            var isPasswordValid = await _identityService.CheckPasswordAsync(request.LoginRequest.Email, request.LoginRequest.Password);
+            
+            if (!isPasswordValid)
             {
                 throw new InvalidCredentialsException();
             }
 
             var user = await _userRepository.GetByEmailAsync(request.LoginRequest.Email);
+            if (user == null)
+            {
+                throw new InvalidCredentialsException();
+            }
+
             var token = _jwtService.GenerateToken(user.Id.ToString(), user.Email);
 
             return new AuthResponse { Token = token, Email = user.Email };

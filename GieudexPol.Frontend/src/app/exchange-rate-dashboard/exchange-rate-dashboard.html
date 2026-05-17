@@ -10,22 +10,29 @@
     <div class="control-group currency-control">
       <span>Waluta</span>
       <div class="segmented-control" role="group" aria-label="Waluta">
-        <button
-          *ngFor="let item of currencies"
-          type="button"
-          class="segment-button"
-          [class.is-active]="currency === item"
-          (click)="selectCurrency(item)"
-        >
-          {{ item }}
-        </button>
+        @for (item of currencies; track item) {
+          <button
+            type="button"
+            class="segment-button"
+            [class.is-active]="currency === item"
+            (click)="selectCurrency(item)"
+          >
+            {{ item }}
+          </button>
+        } @empty {
+          <!-- Brak walut -->
+        }
       </div>
     </div>
 
     <label>
-      <span>Zrodlo</span>
-      <select name="source" [ngModel]="source" (ngModelChange)="onSourceChange($event)">
-        <option *ngFor="let item of sources" [value]="item.code">{{ item.label }}</option>
+      <span>Źródło</span>
+      <select name="source" [(ngModel)]="source" (ngModelChange)="onSourceChange($event)">
+        @for (item of sources; track item) {
+          <option [value]="item.code">{{ item.label }}</option>
+        } @empty {
+          <!-- Brak źródeł -->
+        }
       </select>
     </label>
 
@@ -48,15 +55,18 @@
     <div>
       <span class="quick-label">Zakres</span>
       <div class="quick-actions">
-        <button
-          *ngFor="let preset of rangePresets"
-          type="button"
-          class="quick-button"
-          (click)="applyRangePreset(preset)"
-          [disabled]="loading || syncingNbp"
-        >
-          {{ preset.label }}
-        </button>
+        @for (preset of rangePresets; track preset) {
+          <button
+            type="button"
+            class="quick-button"
+            (click)="applyRangePreset(preset)"
+            [disabled]="loading || syncingNbp"
+          >
+            {{ preset.label }}
+          </button>
+        } @empty {
+          <!-- Brak zakresów -->
+        }
       </div>
     </div>
     <div class="fallback-note">
@@ -68,13 +78,19 @@
   <div class="status-row" [class.is-loading]="loading || syncingNbp" [class.has-error]="errorMessage">
     <span class="status-dot" aria-hidden="true"></span>
     <span>{{ statusMessage }}</span>
-    <span *ngIf="lastLoadedAt" class="status-time">
-      Ostatnio: {{ lastLoadedAt | date:'HH:mm:ss' }}
-    </span>
+    @if (lastLoadedAt) {
+      <span class="status-time">
+        Ostatnio: {{ lastLoadedAt | date:'HH:mm:ss' }}
+      </span>
+    }
   </div>
 
-  <p *ngIf="lastNbpSyncSummary" class="sync-summary">{{ lastNbpSyncSummary }}</p>
-  <p *ngIf="errorMessage" class="alert">{{ errorMessage }}</p>
+  @if (lastNbpSyncSummary) {
+    <p class="sync-summary">{{ lastNbpSyncSummary }}</p>
+  }
+  @if (errorMessage) {
+    <p class="alert">{{ errorMessage }}</p>
+  }
 
   <section class="summary-grid" aria-label="Podsumowanie kursow">
     <article>
@@ -117,74 +133,50 @@
         (mouseleave)="clearSelectedPoint()"
       >
         <g class="grid">
-          <line
-            *ngFor="let line of gridLines"
-            [attr.x1]="chartPadding.left"
-            [attr.x2]="chartWidth - chartPadding.right"
-            [attr.y1]="line.y"
-            [attr.y2]="line.y"
-          ></line>
-          <text
-            *ngFor="let line of gridLines"
-            [attr.x]="chartPadding.left - 10"
-            [attr.y]="line.y + 4"
-            text-anchor="end"
-          >
-            {{ line.label | number:'1.2-2' }}
-          </text>
+          @for (line of gridLines; track line.y) {
+            <line
+              [attr.x1]="chartPadding.left"
+              [attr.x2]="chartWidth - chartPadding.right"
+              [attr.y1]="line.y"
+              [attr.y2]="line.y"
+            ></line>
+            <text
+              [attr.x]="chartPadding.left - 10"
+              [attr.y]="line.y + 4"
+              text-anchor="end"
+            >{{ line.label | number:'1.2-2' }}</text>
+          } @empty {
+            <!-- Brak linii siatki -->
+          }
         </g>
 
-        <line
-          class="axis"
-          [attr.x1]="chartPadding.left"
-          [attr.x2]="chartWidth - chartPadding.right"
-          [attr.y1]="chartHeight - chartPadding.bottom"
-          [attr.y2]="chartHeight - chartPadding.bottom"
-        ></line>
-        <line
-          class="axis"
-          [attr.x1]="chartPadding.left"
-          [attr.x2]="chartPadding.left"
-          [attr.y1]="chartPadding.top"
-          [attr.y2]="chartHeight - chartPadding.bottom"
-        ></line>
+        <line class="axis" [attr.x1]="chartPadding.left" [attr.x2]="chartWidth - chartPadding.right" [attr.y1]="chartHeight - chartPadding.bottom" [attr.y2]="chartHeight - chartPadding.bottom"></line>
+        <line class="axis" [attr.x1]="chartPadding.left" [attr.x2]="chartPadding.left" [attr.y1]="chartPadding.top" [attr.y2]="chartHeight - chartPadding.bottom"></line>
 
         <polyline class="line buy" [attr.points]="buyLinePoints"></polyline>
         <polyline class="line sell" [attr.points]="sellLinePoints"></polyline>
 
-        <g *ngIf="selectedPoint as point" class="selection">
-          <line
-            class="selection-line"
-            [attr.x1]="selectedPointX"
-            [attr.x2]="selectedPointX"
-            [attr.y1]="chartPadding.top"
-            [attr.y2]="chartHeight - chartPadding.bottom"
-          ></line>
-          <circle class="selection-dot buy-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedBuyY" r="5"></circle>
-          <circle class="selection-dot sell-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedSellY" r="5"></circle>
+        @if (selectedPoint) {
+          <g class="selection">
+            <line class="selection-line" [attr.x1]="selectedPointX" [attr.x2]="selectedPointX" [attr.y1]="chartPadding.top" [attr.y2]="chartHeight - chartPadding.bottom"></line>
+            <circle class="selection-dot buy-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedBuyY" r="5"></circle>
+            <circle class="selection-dot sell-dot" [attr.cx]="selectedPointX" [attr.cy]="selectedSellY" r="5"></circle>
 
-          <g class="tooltip" [attr.transform]="'translate(' + selectedTooltipX + ' ' + selectedTooltipY + ')'">
-            <rect width="176" height="76" rx="6"></rect>
-            <text x="12" y="22">{{ point.date | date:'yyyy-MM-dd' }}</text>
-            <text x="12" y="44">Kupno: {{ point.buyPrice | number:'1.4-4' }}</text>
-            <text x="12" y="62">Sprzedaz: {{ point.sellPrice | number:'1.4-4' }}</text>
+            <g class="tooltip" [attr.transform]="'translate(' + selectedTooltipX + ' ' + selectedTooltipY + ')'">
+              <rect width="176" height="76" rx="6"></rect>
+              <text x="12" y="22">{{ selectedPoint.date | date:'yyyy-MM-dd' }}</text>
+              <text x="12" y="44">Kupno: {{ selectedPoint.buyPrice | number:'1.4-4' }}</text>
+              <text x="12" y="62">Sprzedaz: {{ selectedPoint.sellPrice | number:'1.4-4' }}</text>
+            </g>
           </g>
-        </g>
+        } @else {
+          <!-- Brak wybranego punktu -->
+        }
 
-        <text
-          class="date-label"
-          [attr.x]="chartPadding.left"
-          [attr.y]="chartHeight - 12"
-          text-anchor="start"
-        >
+        <text class="date-label" [attr.x]="chartPadding.left" [attr.y]="chartHeight - 12" text-anchor="start">
           {{ firstPointDate | date:'yyyy-MM-dd' }}
         </text>
-        <text
-          class="date-label"
-          [attr.x]="chartWidth - chartPadding.right"
-          [attr.y]="chartHeight - 12"
-          text-anchor="end"
-        >
+        <text class="date-label" [attr.x]="chartWidth - chartPadding.right" [attr.y]="chartHeight - 12" text-anchor="end">
           {{ lastPointDate | date:'yyyy-MM-dd' }}
         </text>
       </svg>
@@ -214,15 +206,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let point of chartPoints; trackBy: trackByDate">
-            <td>{{ point.date | date:'yyyy-MM-dd' }}</td>
-            <td>{{ point.buyPrice | number:'1.4-4' }}</td>
-            <td>{{ point.sellPrice | number:'1.4-4' }}</td>
-            <td>{{ spread(point) | number:'1.4-4' }}</td>
-          </tr>
-          <tr *ngIf="!loading && chartPoints.length === 0">
-            <td colspan="4" class="empty">Brak danych dla wybranego zakresu.</td>
-          </tr>
+          @for (point of chartPoints; track point.date) {
+            <tr>
+              <td>{{ point.date | date:'yyyy-MM-dd' }}</td>
+              <td>{{ point.buyPrice | number:'1.4-4' }}</td>
+              <td>{{ point.sellPrice | number:'1.4-4' }}</td>
+              <td>{{ spread(point) | number:'1.4-4' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="empty">Brak danych dla wybranego zakresu.</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
@@ -246,16 +241,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let rate of latestRates; trackBy: trackByCurrency">
-            <td>{{ rate.currencyCode }}</td>
-            <td>{{ rate.currencyName }}</td>
-            <td>{{ rate.effectiveDate | date:'yyyy-MM-dd' }}</td>
-            <td>{{ rate.buyPrice | number:'1.4-4' }}</td>
-            <td>{{ rate.sellPrice | number:'1.4-4' }}</td>
-          </tr>
-          <tr *ngIf="!loading && latestRates.length === 0">
-            <td colspan="5" class="empty">Brak najnowszych kursow dla tego zrodla.</td>
-          </tr>
+          @for (rate of latestRates; track $index) {
+            <tr>
+              <td>{{ rate.currencyCode }}</td>
+              <td>{{ rate.currencyName }}</td>
+              <td>{{ rate.effectiveDate | date:'yyyy-MM-dd' }}</td>
+              <td>{{ rate.buyPrice | number:'1.4-4' }}</td>
+              <td>{{ rate.sellPrice | number:'1.4-4' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty">Brak najnowszych kursow dla tego zrodla.</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

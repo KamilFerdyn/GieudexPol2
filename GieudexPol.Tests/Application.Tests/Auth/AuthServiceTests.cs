@@ -5,12 +5,42 @@ using GieudexPol.Domain.Auth;
 using GieudexPol.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace GieudexPol.Tests.Application.Tests.Auth
 {
+    // 1. Klasy pomocnicze (Wrappery), które pozwalają testom "gadać" z nowym serwisem 
+    // przy użyciu starych mocków Twojego znajomego, bez dotykania kodu produkcyjnego.
+    public class FakeJwtService : IJwtService
+    {
+        private readonly Mock<JwtService> _mock;
+        public FakeJwtService(Mock<JwtService> mock) => _mock = mock;
+        public string GenerateToken(string userId, string email) => _mock.Object.GenerateToken(userId, email);
+    }
+
+    public class FakeIdentityService : IIdentityService
+    {
+        private readonly Mock<UserManager<ApplicationUser>> _userManager;
+        private readonly Mock<SignInManager<ApplicationUser>> _signInManager;
+
+        public FakeIdentityService(Mock<UserManager<ApplicationUser>> userManager, Mock<SignInManager<ApplicationUser>> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        public async Task<bool> CheckPasswordAsync(string email, string password)
+        {
+            var appUser = await _userManager.Object.FindByEmailAsync(email);
+            if (appUser == null) return false;
+            var result = await _signInManager.Object.CheckPasswordSignInAsync(appUser, password, false);
+            return result.Succeeded;
+        }
+    }
+
     public class AuthServiceTests
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
@@ -22,17 +52,20 @@ namespace GieudexPol.Tests.Application.Tests.Auth
         public AuthServiceTests()
         {
             _mockUserRepository = new Mock<IUserRepository>();
-            _mockJwtService = new Mock<JwtService>(null); // Pass null for IConfiguration
+            _mockJwtService = new Mock<JwtService>(null);
             _mockUserManager = new Mock<UserManager<ApplicationUser>>(
                 Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
             _mockSignInManager = new Mock<SignInManager<ApplicationUser>>(
                 _mockUserManager.Object, Mock.Of<Microsoft.AspNetCore.Http.IHttpContextAccessor>(), Mock.Of<IUserClaimsPrincipalFactory<ApplicationUser>>(), null, null, null, null);
 
+            // 2. Mapujemy stare mocki znajomego na interfejsy nowego serwisu za pomocą naszych wrapperów
+            var adapterJwt = new FakeJwtService(_mockJwtService);
+            var adapterIdentity = new FakeIdentityService(_mockUserManager, _mockSignInManager);
+
             _authService = new AuthService(
                 _mockUserRepository.Object,
-                _mockJwtService.Object,
-                _mockUserManager.Object,
-                _mockSignInManager.Object);
+                adapterJwt,
+                adapterIdentity);
         }
 
         [Fact]

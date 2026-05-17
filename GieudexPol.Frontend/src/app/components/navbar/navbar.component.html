@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">GieudexPol</a>
+    <ul class="navbar-list ms-auto">
+      <!-- Linki do kluczowych sekcji -->
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" [routerLinkActive]="'active-link'">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/wallet" [routerLinkActive]="'active-link'">Portfel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/history" [routerLinkActive]="'active-link'">Historia Transakcji</a>
+      </li>
+    </ul>
+  </div>
+</nav>

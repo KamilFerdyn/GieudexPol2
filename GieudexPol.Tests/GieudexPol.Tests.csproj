@@ -14,6 +14,7 @@
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,8 @@
   <ItemGroup>
     <ProjectReference Include="..\GieudexPol.Application\GieudexPol.Application.csproj" />
     <ProjectReference Include="..\GieudexPol.Domain\GieudexPol.Domain.csproj" />
+    <!-- Poprawiona ścieżka do projektu głównego zgodnie z wynikiem z terminala -->
+    <ProjectReference Include="..\GieudexPol.API\GieudexPol.API.csproj" />
   </ItemGroup>
 
 </Project>

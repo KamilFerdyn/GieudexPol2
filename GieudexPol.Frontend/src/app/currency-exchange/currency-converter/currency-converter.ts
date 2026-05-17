@@ -29,6 +29,10 @@ export class CurrencyConverterComponent {
     CHF: 4.60
   };
 
+  get availableCurrencies(): string[] {
+    return Object.keys(this.exchangeRates);
+  }
+
   // Funkcja do konwersji kwoty z waluty źródłowej na PLN
   private convertToPLN(amount: number, currency: string): number {
     if (currency === 'PLN') {

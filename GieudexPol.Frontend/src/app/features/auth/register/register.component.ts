@@ -9,14 +9,14 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm!: FormGroup;
   errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -25,9 +25,10 @@ export class RegisterComponent implements OnInit {
       confirmPassword: ['', Validators.required]
     });
 
+    // Dodanie walidacji pasma haseł po inicjalizacji formularza
     this.registerForm.get('confirmPassword')?.setValidators([
-      Validators.required,
-      this.matchPasswords.bind(this)
+        Validators.required,
+        this.matchPasswords.bind(this)
     ]);
   }
 
@@ -42,11 +43,17 @@ export class RegisterComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     this.errorMessage = null;
+
+    // Zabezpieczenie przed undefined – informuje TS, że formularz istnieje
+    if (!this.registerForm) {
+      return;
+    }
+
     if (this.registerForm.valid) {
       try {
         const { email, password } = this.registerForm.value;
         await this.authService.register(email, password);
-        this.router.navigate(['/auth/login']); // Przekieruj na stronę logowania po rejestracji
+        this.router.navigate(['/auth/login']);
       } catch (error: any) {
         this.errorMessage = error.message || 'Błąd rejestracji. Spróbuj ponownie.';
       }

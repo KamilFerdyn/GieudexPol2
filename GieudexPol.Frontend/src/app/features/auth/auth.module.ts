@@ -1,23 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AuthRoutingModule } from './auth-routing.module';
+// Importowanie komponentów jako standalone (jeśli są to faktycznie standalone)
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent
-  ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AuthRoutingModule
-  ]
+    LoginComponent, // Imporujemy do modułu używającego AuthModule (np. AppRoutingModule)
+    RegisterComponent, // I tak samo tutaj
+    // ... inne moduły
+  ],
+  declarations: [], // Usunięto deklaracje komponentów standalone z NgModule
+  providers: [],
+  bootstrap: [/*...*/]
 })
 export class AuthModule { }

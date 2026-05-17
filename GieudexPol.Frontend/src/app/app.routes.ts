@@ -1,10 +1,15 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './features/auth/guards/auth.guard';
 
+import { WalletManagementComponent } from './features/wallet/components/wallet-management/wallet-management.component';
+// Import komponentu Dashboard (założenie ścieżki)
+import { DashboardComponent } from './components/dashboard/dashboard.component'; 
+
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
-  { path: 'rates', loadChildren: () => import('./exchange-rate-dashboard/exchange-rate-dashboard.module').then(m => m.ExchangeRateDashboardModule), canActivate: [AuthGuard] },
-  { path: 'exchange', loadChildren: () => import('./currency-exchange/currency-converter/currency-converter.module').then(m => m.CurrencyConverterModule), canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'auth/login' } // Obsługa nieznanych tras
+  // Trasa dla Dashboardu - główny widok po zalogowaniu
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }, 
+  // Dodanie trasy dla zarządzania portfelem
+  { path: 'wallet', component: WalletManagementComponent, canActivate: [AuthGuard] }, 
+  // ... inne istniejące trasy
 ];

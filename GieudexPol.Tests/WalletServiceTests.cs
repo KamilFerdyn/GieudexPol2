@@ -12,12 +12,18 @@ namespace GieudexPol.Tests
     public class WalletServiceTests
     {
         private readonly Mock<IWalletRepository> _mockWalletRepository;
+        // Dodano brakujące pole dla mocka serwisu transakcji
+        private readonly Mock<ITransactionService> _mockTransactionService;
         private readonly WalletService _walletService;
 
         public WalletServiceTests()
         {
             _mockWalletRepository = new Mock<IWalletRepository>();
-            _walletService = new WalletService(_mockWalletRepository.Object);
+            // Inicjalizacja brakującego mocka
+            _mockTransactionService = new Mock<ITransactionService>();
+            
+            // Przekazanie obu wymaganych obiektów do konstruktora serwisu produkcyjnego
+            _walletService = new WalletService(_mockWalletRepository.Object, _mockTransactionService.Object);
         }
 
         [Fact]
