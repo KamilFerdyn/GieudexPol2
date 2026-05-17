@@ -17,10 +17,14 @@ COPY GieudexPol.API/GieudexPol.API.csproj GieudexPol.API/
 COPY GieudexPol.Application/GieudexPol.Application.csproj GieudexPol.Application/
 COPY GieudexPol.Domain/GieudexPol.Domain.csproj GieudexPol.Domain/
 COPY GieudexPol.Infrastructure/GieudexPol.Infrastructure.csproj GieudexPol.Infrastructure/
-RUN dotnet restore GieudexPol.sln
+
+# ZMIANA: Przywracamy pakiety tylko dla API, co ignoruje brakujący projekt testowy
+RUN dotnet restore GieudexPol.API/GieudexPol.API.csproj
 COPY . .
 WORKDIR /src/GieudexPol.API
-RUN dotnet build -c Release -o /app/build
+
+# ZMIANA: Budujemy konkretny projekt API zamiast całej solucji
+RUN dotnet build GieudexPol.API.csproj -c Release -o /app/build
 
 # Stage 3: Create the final image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
