@@ -1,0 +1,59 @@
+@startuml
+!theme amiga
+
+title Diagram Klas Portfela (Wallet) - Wersja 2
+
+' Definicje komponentów i warstw za pomocą component/database
+component "Frontend UI" as UI {
+    class ClientComponent {}
+}
+
+component "Service Layer" as Service {
+    class WalletService {}
+}
+
+database "Backend API" as Backend {
+    class BackendController {}
+}
+
+package Model_Domainowy {
+    class Wallet {
+        + walletId: String
+        + userId: Long
+        + balance: Map<String, Double>
+        --
+        getUserWallets(userId): WalletDto[]
+        getWalletById(walletId): WalletDto
+        createWallet(wallet: WalletDto): WalletDto
+        updateWallet(walletId, wallet: WalletDto): void
+        deleteWallet(walletId): void
+    }
+
+    class WalletDto {
+        + walletId: String
+        + userId: Long
+        + balance: Map<String, Double>
+        + currencyPairs: List<String>
+    }
+
+    class CreateWalletDto {
+        + initialAmount: Double
+        + primaryCurrency: String
+    }
+
+    class Transaction {
+        + transactionId: String
+        + fromWalletId: String
+        + toWalletId: String
+        + amount: Double
+        + currency: String
+        + timestamp: Date
+    }
+}
+
+' Relacje między warstwami i modelami
+UI --> Service : wywołuje >
+Service --> Model_Domainowy : używa >
+
+Wallet "1" *-- "0..*" WalletDto : zawiera >
+@enduml
