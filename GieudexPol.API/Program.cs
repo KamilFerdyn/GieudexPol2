@@ -105,10 +105,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-// Enable static files middleware
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseCors("AllowAll");
@@ -118,8 +114,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Add fallback for Angular routing
-app.MapFallbackToFile("index.html");
+// Note: Static file serving and Angular fallback routing are handled by Nginx/Reverse Proxy.
 
 app.Run();
 
