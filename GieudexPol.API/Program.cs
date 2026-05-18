@@ -73,7 +73,7 @@ builder.Services.AddScoped<IExchangeRateSyncService, ExchangeRateSyncService>();
 
 builder.Services.AddHttpClient<INbpExchangeRateClient, NbpExchangeRateClient>(client =>
 {
-    client.BaseAddress = new Uri("https://api.nbp.pl/api/");
+    client.BaseAddress = new Uri("https://nbp.pl");
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
@@ -105,6 +105,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseCors("AllowAll");
@@ -114,7 +117,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Note: Static file serving and Angular fallback routing are handled by Nginx/Reverse Proxy.
+app.MapFallbackToFile("index.html");
 
 app.Run();
 
