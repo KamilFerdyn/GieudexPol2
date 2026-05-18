@@ -46,7 +46,16 @@
 5.  **Interactive Charts:** Visualization tools for price trend analysis.
 6.  **Transaction History:** Comprehensive, auditable log of all operations (deposits, trades).
 7.  **Price Alerts:** System to notify users when an asset reaches a specified target price.
-8.  **Wallet Management (NEW):** Centralized module for viewing and executing currency exchange transactions. Wykorzystuje endpoint `POST /api/wallet/trade` do bezpiecznego transferu środków między walutami użytkownika, zarządzając stanem salda w rekordzie `Wallets`.
+8.  **Wallet Management (Portfel):** Centralizowany moduł do zarządzania saldami i realizacji transakcji wymiany walut.
+    *   **Cel:** Umożliwienie użytkownikowi bezpiecznej wymiany środków między różnymi walutami w ramach ekosystemu GieudexPol.
+    *   **Endpoint API (GET):** `/api/wallets/user/{userId}`
+        *   **Opis:** Pobiera aktualne salda portfela dla wszystkich walut powiązanych z użytkownikiem, zwracając listę obiektów `Wallet` zawierającą unikalne saldo dla każdej waluty (`CurrencyId`).
+    *   **Endpoint API (POST):** `/api/wallets/trade`
+        *   **Opis:** Realizuje transakcję handlową poprzez obciążenie portfela źródłowego i zasilenie portfela docelowego.
+        *   **Payload (`TradeRequest`):** Wymaga następujących pól: `userId`, `FromCurrencyId`, `AmountFrom` (kwota sprzedawana), `ToCurrencyId`, `AmountTo` (kwota kupowana).
+        *   **Logika Biznesowa:** System wykonuje dwuetapową operację księgową: najpierw debetuje salda źródłowe, a następnie kredytuje saldo docelowe. Po pomyślnej transakcji generowane są dwa rekordy audytowe w tabeli `Transactions`:
+            *   **Sprzedaż (Sell):** Rejestruje sprzedaną walutę i ilość.
+            *   **Zakup (Buy):** Rejestruje zakupioną walutę i ilość, wraz z wyliczeniem umownego kursu/ceny dla obu operacji.
 
 ### B. Administrator Features (Management)
 1.  **User Management:** Full CRUD capabilities for user profiles (blocking, deletion, password reset).
