@@ -34,8 +34,8 @@ Szybkość powiadomień: Skrócenie czasu od wystąpienia okazji rynkowej do poi
 ## 🛠️ Stack Technologiczny
 | Warstwa | Technologia | Opis |
 | :--- | :--- | :--- |
-| **Frontend** | Angular 17+ | Reaktywny interfejs spekulanta |
-| **Backend** | .NET 8 Core | Wydajne WebAPI w architekturze N-Tier |
+| **Frontend** | Angular 21 | Reaktywny interfejs spekulanta |
+| **Backend** | .NET 10 | Wydajne WebAPI w architekturze N-Tier |
 | **Baza Danych** | MS SQL Server | Relacyjny magazyn danych i historii kursów |
 | **AI Agent** | **Cline** (Gemini-2.5-flash) | Autonomiczny agent (VS Code) wspomagający rozwój i audyt kodu |
 | **Dokumentacja** | PlantUML | Diagramy architektury i przepływu danych |

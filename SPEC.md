@@ -15,8 +15,8 @@
 
 *   **Architecture Pattern:** Clean Architecture (Ensuring separation of concerns: Domain -> Application -> Infrastructure).
 *   **Technology Stack:**
-    *   **Frontend:** Angular 17+ (Reactive client interface).
-    *   **Backend:** .NET 8 Core WebAPI.
+    *   **Frontend:** Angular 21 (Reactive client interface).
+    *   **Backend:** .NET 10 WebAPI.
     *   **Database:** MS SQL Server (Relational data storage for history and profiles).
     *   **AI/Agent Support:** Cline (Gemini-2.5-flash) Agent, utilized for code development assistance and auditing via an Agentic Loop methodology.
     *   **Documentation:** PlantUML (For architectural diagrams).

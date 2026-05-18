@@ -18,7 +18,7 @@ chmod +x deploy.sh
 ### Software Requirements
 - **Docker** (v20.10+)
 - **Docker Compose** (v1.29+)
-- **.NET 8.0 SDK**
+- **.NET 10 SDK**
 - **Node.js** (v18+)
 - **npm** (v9+)
 
