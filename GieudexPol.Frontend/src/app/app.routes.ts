@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './features/auth/guards/auth.guard';
- 
+import { CurrencyConverterComponent } from './currency-exchange/currency-converter/currency-converter';
+
 // Import zaawansowanego komponentu logowania z dedykowanego folderu
 import { LoginComponent } from './features/auth/login/login.component';
  
@@ -12,6 +13,8 @@ export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   // Trasa dla Dashboardu - główny widok po zalogowaniu
   { path: 'auth/login', component: LoginComponent }, 
+  //{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
   // Nowa trasa deweloperska do testów widoku portfela (bez autoryzacji)
   { path: 'test-wallet', component: WalletManagementComponent }, 
   // Trasa dla Dashboardu - główny widok po zalogowaniu (wymaga autoryzacji)
@@ -19,4 +22,7 @@ export const routes: Routes = [
   // Dodanie trasy dla zarządzania portfelem (MUSI zachować AuthGuard!)
   { path: 'wallet', component: WalletManagementComponent, canActivate: [AuthGuard] }, 
   // ... inne istniejące trasy
+  { path: 'converter', component: CurrencyConverterComponent },
+
 ];
+

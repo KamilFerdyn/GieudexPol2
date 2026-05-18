@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-currency-converter',
@@ -10,6 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./currency-converter.css']
 })
 export class CurrencyConverterComponent {
+
+  constructor(private http: HttpClient) { }
+
   amount: number = 0;
   sourceCurrency: string = 'PLN';
   targetCurrency: string = 'USD';
@@ -19,50 +23,46 @@ export class CurrencyConverterComponent {
   resultFee: number | null = null;
   resultTotal: number | null = null;
 
-  // Kursy walut względem PLN (1 PLN = X waluty)
-  private exchangeRates: Record<string, number> = {
-    PLN: 1,
-    USD: 4.25,
-    EUR: 4.50,
-    GBP: 5.30,
-    JPY: 0.032,
-    CHF: 4.60
-  };
+  availableCurrencies: string[] = [
+    'PLN',
+    'USD',
+    'EUR',
+    'GBP',
+    'JPY',
+    'CHF'
+  ];
 
-  get availableCurrencies(): string[] {
-    return Object.keys(this.exchangeRates);
-  }
-
-  // Funkcja do konwersji kwoty z waluty źródłowej na PLN
-  private convertToPLN(amount: number, currency: string): number {
-    if (currency === 'PLN') {
-      return amount;
-    }
-    return amount * this.exchangeRates[currency];
-  }
-
-  // Funkcja do konwersji kwoty z PLN na walutę docelową
-  private convertFromPLN(amountInPLN: number, currency: string): number {
-    if (currency === 'PLN') {
-      return amountInPLN;
-    }
-    return amountInPLN / this.exchangeRates[currency];
-  }
-
-  // Funkcja do obliczania wymiany walut
   calculateExchange(): void {
+
     if (this.amount <= 0 || !this.sourceCurrency || !this.targetCurrency) {
       alert('Proszę uzupełnić wszystkie pola poprawnie.');
       return;
     }
 
-    const amountInPLN = this.convertToPLN(this.amount, this.sourceCurrency);
-    const exchangedAmount = this.convertFromPLN(amountInPLN, this.targetCurrency);
-    const feeAmount = exchangedAmount * (this.fee / 100);
-    const totalAmount = exchangedAmount - feeAmount;
+    const request = {
+      amount: this.amount,
+      sourceCurrency: this.sourceCurrency,
+      targetCurrency: this.targetCurrency,
+      feePercent: this.fee
+    };
 
-    this.resultAmount = exchangedAmount;
-    this.resultFee = feeAmount;
-    this.resultTotal = totalAmount;
+    this.http.post<any>(
+  'http://localhost:5265/api/exchange/calculate',
+      request
+    )
+      .subscribe({
+        next: (response) => {
+
+          this.resultAmount = response.convertedAmount;
+          this.resultFee = response.feeAmount;
+          this.resultTotal = response.finalAmount;
+
+        },
+
+        error: (err) => {
+          console.error(err);
+          alert('Błąd połączenia z backendem.');
+        }
+      });
   }
 }
