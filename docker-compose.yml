@@ -24,7 +24,7 @@ services:
       - Jwt__Key=YourSuperSecretKeyForJWTAuthenticationAtLeast32CharactersLong!
       - Jwt__Issuer=GieudexPol
       - Jwt__Audience=GieudexPolClient
-      - PORT=80  # NAPRAWIONO: Dodano brakującą zmienną portu dla .NET
+      - PORT=80
     ports:
       - "5010:80"
       - "5011:443"
@@ -42,7 +42,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      # NAPRAWIONO: Usunięto wadliwy wolumin szukający plików na Twoim dysku (Nginx użyje teraz konfiguracji proxy_pass do API)
+      # Mount Angular static files built in the frontend directory
+      - ./GieudexPol.Frontend/dist/GieudexPol.Frontend/browser:/usr/share/nginx/html:ro
     depends_on:
       - gieudexpol-api
     networks:
