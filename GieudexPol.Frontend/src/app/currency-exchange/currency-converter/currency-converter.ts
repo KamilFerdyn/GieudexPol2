@@ -61,8 +61,7 @@ export class CurrencyConverterComponent {
 
         error: (err) => {
           console.error(err);
-          alert('Błąd połączenia z backendem.');
-        }
+          alert(err.error?.message || 'Wystąpił błąd.');        }
       });
   }
 }
