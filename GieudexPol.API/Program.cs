@@ -96,6 +96,10 @@ builder.Services.AddScoped<IRateSourceRepository, RateSourceRepository>();
 builder.Services.AddScoped<ICurrencyExchangeSimulationService, CurrencyExchangeSimulationService>();
 
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5265";
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
