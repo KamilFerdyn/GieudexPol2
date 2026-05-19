@@ -24,20 +24,78 @@ public class CurrencyExchangeSimulationService
             throw new ArgumentException(
                 "Kwota musi być większa od zera.");
         }
+        ExchangeRate? exchangeRate = null;
 
-        var exchangeRate =
-            await _exchangeRateService.GetByCurrencyPairAsync(
-                request.SourceCurrency,
-                request.TargetCurrency);
+        decimal exchangedAmount;
 
-        if (exchangeRate == null)
+        if (request.SourceCurrency == request.TargetCurrency)
         {
-            throw new Exception(
-                "Nie znaleziono kursu walut.");
+            exchangedAmount = request.Amount;
         }
+        else if (request.SourceCurrency == "PLN")
+        {
+            // PLN -> X
 
-        decimal exchangedAmount =
-            request.Amount * exchangeRate.SellPrice;
+            exchangeRate =
+                await _exchangeRateService.GetByCurrencyPairAsync(
+                    request.TargetCurrency,
+                    "PLN");
+
+            if (exchangeRate == null)
+            {
+                throw new Exception(
+                    "Nie znaleziono kursu walut.");
+            }
+
+            exchangedAmount =
+                request.Amount / exchangeRate.SellPrice;
+        }
+        else if (request.TargetCurrency == "PLN")
+        {
+            // X -> PLN
+
+            exchangeRate =
+                await _exchangeRateService.GetByCurrencyPairAsync(
+                    request.SourceCurrency,
+                    "PLN");
+
+            if (exchangeRate == null)
+            {
+                throw new Exception(
+                    "Nie znaleziono kursu walut.");
+            }
+
+            exchangedAmount =
+                request.Amount * exchangeRate.SellPrice;
+        }
+        else
+        {
+            // X -> Y
+
+            var sourceRate =
+                await _exchangeRateService.GetByCurrencyPairAsync(
+                    request.SourceCurrency,
+                    "PLN");
+
+            var targetRate =
+                await _exchangeRateService.GetByCurrencyPairAsync(
+                    request.TargetCurrency,
+                    "PLN");
+
+            if (sourceRate == null || targetRate == null)
+            {
+                throw new Exception(
+                    "Nie znaleziono kursu walut.");
+            }
+
+            decimal amountInPln =
+                request.Amount * sourceRate.SellPrice;
+
+            exchangedAmount =
+                amountInPln / targetRate.SellPrice;
+
+            exchangeRate = sourceRate;
+        }
 
         decimal feeAmount =
             exchangedAmount * (request.FeePercent / 100);
@@ -45,12 +103,14 @@ public class CurrencyExchangeSimulationService
         decimal finalAmount =
             exchangedAmount + feeAmount;
 
+
+
         var simulation = new CurrencyExchangeSimulation
         {
             Amount = request.Amount,
             SourceCurrency = request.SourceCurrency,
             TargetCurrency = request.TargetCurrency,
-            ExchangeRate = exchangeRate.SellPrice,
+            ExchangeRate = exchangeRate?.SellPrice ?? 1,
             FeePercent = request.FeePercent,
             FeeAmount = feeAmount,
             FinalAmount = finalAmount,
