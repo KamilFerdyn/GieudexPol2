@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-currency-converter',
@@ -45,13 +46,17 @@ export class CurrencyConverterComponent {
       targetCurrency: this.targetCurrency,
       feePercent: this.fee
     };
+    //asfasdf
 
+    const endpointUrl = `${environment.apiUrl}/api/exchange/calculate`;
     this.http.post<any>(
-  'http://localhost:5265/api/exchange/calculate',
+      endpointUrl,
+      
       request
     )
       .subscribe({
         next: (response) => {
+          ///adfsad
 
           this.resultAmount = response.exchangedAmount;
           this.resultFee = response.feeAmount;
