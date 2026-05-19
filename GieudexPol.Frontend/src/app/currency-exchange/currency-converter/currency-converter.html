@@ -43,12 +43,21 @@
 
         <!-- Wynik wymiany -->
         @if (resultAmount !== null) {
-            <div class="result p-3 border rounded bg-light">
-                <p class="mb-1">Wynik wymiany:</p>
-                <p class="h4 mb-2"><strong class="text-primary">{{ resultAmount | number:'1.2-2' }} {{ targetCurrency }}</strong></p>
-                <p class="fee-text small text-muted">Prowizja: {{ resultFee | number:'1.2-2' }} {{ targetCurrency }} ({{ fee }}%)</p>
-                <p class="mt-2"><strong class="h5">Kwota netto: {{ resultTotal | number:'1.2-2' }} {{ targetCurrency }}</strong></p>
-            </div>
+            <p class="mb-2">
+                <strong>Kwota po kursie:</strong>
+                {{ resultAmount | number:'1.2-2' }} {{ targetCurrency }}
+            </p>
+            
+            <p class="mb-2 text-muted">
+                <strong>Prowizja:</strong>
+                {{ resultFee | number:'1.2-2' }} {{ targetCurrency }}
+                ({{ fee }}%)
+            </p>
+            
+            <p class="mt-2 h5">
+                <strong>Kwota końcowa:</strong>
+                {{ resultTotal | number:'1.2-2' }} {{ targetCurrency }}
+            </p>
         } @else {
             <!-- Brak wyniku -->
         }

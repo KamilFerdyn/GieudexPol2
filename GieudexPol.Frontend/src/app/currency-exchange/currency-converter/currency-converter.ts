@@ -53,7 +53,7 @@ export class CurrencyConverterComponent {
       .subscribe({
         next: (response) => {
 
-          this.resultAmount = response.convertedAmount;
+          this.resultAmount = response.exchangedAmount;
           this.resultFee = response.feeAmount;
           this.resultTotal = response.finalAmount;
 

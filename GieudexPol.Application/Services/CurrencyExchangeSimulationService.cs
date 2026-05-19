@@ -43,7 +43,7 @@ public class CurrencyExchangeSimulationService
             exchangedAmount * (request.FeePercent / 100);
 
         decimal finalAmount =
-            exchangedAmount - feeAmount;
+            exchangedAmount + feeAmount;
 
         var simulation = new CurrencyExchangeSimulation
         {
@@ -59,6 +59,12 @@ public class CurrencyExchangeSimulationService
 
         return new CurrencyExchangeSimulationResponseDto
         {
+            OriginalAmount = request.Amount,
+            ExchangedAmount = exchangedAmount,
+
+            SourceCurrency = request.SourceCurrency,
+            TargetCurrency = request.TargetCurrency,
+
             ExchangeRate = simulation.ExchangeRate,
             FeeAmount = simulation.FeeAmount,
             FinalAmount = simulation.FinalAmount,
